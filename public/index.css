@@ -1,29 +1,41 @@
 .header{
     display:flex;
-    justify-content: space-between;
+
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #29487d;
     background-color:#4267b2;
     color:white;
     align-items:center;
-
+    font-size: 120%;
+    height:50px;
 
 
 }
 a{
     text-decoration: none;
     color:white;
+    font-family: 'Lato', sans-serif;
 }
 .menu{
     display:flex;
+    padding-right: 50px;
+    justify-content: flex-end;
+    font-size: 80%;
     flex:1;
-    justify-content:space-around;
 }
 
 .logo{
-    text-align:center;
+    display:flex;
+    padding-left: 50px;
+    align-items: center;
+    font-size: 120%;
     flex:1;
-    align-content:center;
+}
+
+.logo img{
+    height: 50px;
+    width: auto;
+    margin-right: 3px;
 }
 .page-title{
     text-align:center;
@@ -37,6 +49,7 @@ html,body{
     height: 100%;
     display: flex;
     flex-direction: column;
+    font-family: 'Lato', sans-serif;
 
 }
 
@@ -49,10 +62,14 @@ html,body{
 }
 .menu-item:hover{
     background-color:#3b5da0;
-    padding:5px;
+    padding:6px;
+    margin: 2px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
 }
 .menu-item{
-    padding:5px;
+    margin:8px;
 }
 
 .block{
@@ -71,6 +88,7 @@ html,body{
 
 .block p{
     margin: 10px 10% 10px 10%;
+    font-size: 80%;
 }
 
 .block-title{
@@ -79,11 +97,56 @@ html,body{
     border-radius: 10px 10px 0 0;
     -moz-border-radius: 10px 10px 0 0;
     -webkit-border-radius: 10px 10px 0 0;
-
+    padding: 5px 0 5px 0;
     color:#365899;
+    font-size: 100%;
 
 }
 .footer{
     text-align: center;
     color:#365899;
+}
+
+/************************Icon Styles|Mejor en otro archivo***************************/
+/*Strong signal*/
+.iconic-signal.iconic-signal-strong .iconic-signal-base {
+    fill:#569e26;
+}
+.iconic-signal.iconic-signal-strong .iconic-signal-wave * {
+    stroke:#569e26;
+}
+
+/*Medium signal*/
+.iconic-signal.iconic-signal-medium .iconic-signal-base {
+    fill:#efc411;
+}
+.iconic-signal.iconic-signal-medium .iconic-signal-wave * {
+    stroke:#efc411;
+}
+.iconic-signal.iconic-signal-medium .iconic-signal-wave-outer {
+    opacity:.3;
+    stroke-width:.5;
+}
+
+/*Weak signal*/
+.iconic-signal.iconic-signal-weak .iconic-signal-base {
+    fill:#b52808;
+}
+.iconic-signal.iconic-signal-weak .iconic-signal-wave * {
+    stroke:#b52808;
+}
+.iconic-signal.iconic-signal-weak .iconic-signal-wave-outer ,
+.iconic-signal.iconic-signal-weak .iconic-signal-wave-middle {
+    opacity:.3;
+    stroke-width:.5;
+}
+
+/*No signal*/
+.iconic-signal.iconic-signal-none .iconic-signal-base {
+    fill:#848484;
+}
+.iconic-signal.iconic-signal-none .iconic-signal-wave * {
+    stroke:#848484;
+    opacity:.3;
+    stroke-width:.5;
 }
