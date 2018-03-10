@@ -2,18 +2,18 @@
 CREATE SCHEMA `mdadb` DEFAULT CHARACTER SET utf8;
 
 #DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE `usuarios` (
-  `idusuarios` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
+CREATE TABLE `mdadb`.`usuarios` (
+  `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `dni` varchar(10) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
   `num_seguridad_social` varchar(25) NOT NULL,
   `es_medico` tinyint(1) DEFAULT '0',
   `fecha_nacimiento` date NOT NULL,
   `teléfono` varchar(20) NOT NULL,
   `historial` longtext,
-  PRIMARY KEY (`idusuarios`),
-  UNIQUE KEY `dni_UNIQUE` (`dni`),
-  UNIQUE KEY `telephone_UNIQUE` (`teléfono`)
+  PRIMARY KEY (`idusuario`),
+  UNIQUE KEY `dni_UNIQUE` (`dni`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #DROP TABLE IF EXISTS `citas`;
@@ -29,11 +29,11 @@ CREATE TABLE `mdadb`.`citas` (
   UNIQUE INDEX `fechora_medico` (`fechora`, `idmedico`),
   CONSTRAINT `fk_idpaciente`
     FOREIGN KEY (`idpaciente`)
-    REFERENCES `mdadb`.`usuarios` (`idusuarios`)
+    REFERENCES `mdadb`.`usuarios` (`idusuario`)
     ON DELETE CASCADE,
   CONSTRAINT `fk_idmedico`
     FOREIGN KEY (`idmedico`)
-    REFERENCES `mdadb`.`usuarios` (`idusuarios`)
+    REFERENCES `mdadb`.`usuarios` (`idusuario`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
