@@ -10,7 +10,7 @@ CREATE TABLE `mdadb`.`usuarios` (
   `num_seguridad_social` varchar(25) NOT NULL,
   `es_medico` tinyint(1) DEFAULT '0',
   `fecha_nacimiento` date NOT NULL,
-  `teléfono` varchar(20) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
   `historial` longtext,
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `dni_UNIQUE` (`dni`)
