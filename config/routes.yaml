@@ -1,3 +1,7 @@
 index:
     path: /
     controller: App\Controller\AppController::index
+
+dbtest:
+    path: /test/db
+    controller: App\Controller\AppController::db_test
