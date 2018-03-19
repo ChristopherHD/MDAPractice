@@ -36,15 +36,23 @@ class UsersRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Users
+    public function findByDni($value): ?Users
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+            ->andWhere('u.dni = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+            ;
     }
-    */
+
+    public function findByApiKey($value): ?Users
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.key = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

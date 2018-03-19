@@ -2,13 +2,25 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
-class Users
+class Users implements UserInterface
 {
+
+    public function __construct($username=null, $password=null, $dni=null, $social_security_number=null, $birthdate=null, $phone=null)
+    {
+        $this->username = $username;
+        $this->password = $password;
+        $this->dni = $dni;
+        $this->social_security_number = $social_security_number;
+        $this->birthdate = $birthdate;
+        $this->phone = $phone;
+
+    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,9 +29,9 @@ class Users
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(name="name", type="string", length=45)
      */
-    private $name;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=10)
@@ -63,14 +75,14 @@ class Users
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
-    public function setName(string $name): self
+    public function setUsername(string $name): self
     {
-        $this->name = $name;
+        $this->username = $name;
 
         return $this;
     }
@@ -173,6 +185,52 @@ class Users
     public function setDni($dni)
     {
         $this->dni = $dni;
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        if($this->isDoctor === True) return array('ROLE_DOC');
+        return array('ROLE_USER');
+
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }
 

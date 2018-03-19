@@ -21,7 +21,7 @@ class AppController extends Controller
         $user->setPhone('bh346');
         $user->setBirthdate(new \DateTime('NOW'));
         $user->setPassword('pepe');
-        $user->setName('pepe');
+        $user->setUsername('pepe');
 
         $entityManager->persist($user);
         $entityManager->flush();
@@ -37,7 +37,7 @@ class AppController extends Controller
         }
 
         return $this->render('dbtest.html.twig', array(
-            'name' => $user_s->getName(),
+            'name' => $user_s->getUsername(),
 
         ));
     }
