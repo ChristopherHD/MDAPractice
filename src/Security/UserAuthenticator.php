@@ -8,10 +8,9 @@
 
 namespace App\Security;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,8 +23,10 @@ class UserAuthenticator extends AbstractGuardAuthenticator
 {
 
     private $router;
-    public function __construct(RouterInterface $router)
+    private $logger;
+    public function __construct(RouterInterface $router,LoggerInterface $logger)
     {
+        $this->logger = $logger;
         $this->router = $router;
     }
     /**
@@ -35,8 +36,12 @@ class UserAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        if($request->getPathInfo()==='/dbtest') return false;
-        return true;
+        $this->logger->info($request->getPathInfo());
+        if($request->request->has('login')&&$request->getPathInfo()==='/login'){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -45,11 +50,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        return array(
-            'dni' => $request->get('dni'),
-            'password' => $request->get('password'),
-
-        );
+        return $request->request->get('login');
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -78,7 +79,8 @@ class UserAuthenticator extends AbstractGuardAuthenticator
     {
         // on success, let the request continue
         // or return token
-        return null;
+        $url = $this->router->generate('index');
+        return new RedirectResponse($url);
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
@@ -93,7 +95,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator
     public function start(Request $request, AuthenticationException $authException = null)
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, 'Authentication Required');
-        $url = $this->router->generate('index');
+        $url = $this->router->generate('login');
         return new RedirectResponse($url);
         /*
         $data = array(

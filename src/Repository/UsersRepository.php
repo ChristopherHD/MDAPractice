@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -38,21 +39,27 @@ class UsersRepository extends ServiceEntityRepository
 
     public function findByDni($value): ?Users
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.dni = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ;
+        try {
+            return $this->createQueryBuilder('u')
+                ->andWhere('u.dni = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 
     public function findByApiKey($value): ?Users
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.key = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ;
+        try {
+            return $this->createQueryBuilder('u')
+                ->andWhere('u.key = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 }

@@ -3,7 +3,7 @@ security:
     providers:
         db:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Users
                 property: dni
 
     firewalls:
@@ -12,7 +12,9 @@ security:
             security: false
         main:
             anonymous: ~
-            logout: ~
+            logout:
+                path:   /logout
+                target: /
 
             guard:
                 authenticators:

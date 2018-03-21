@@ -2,6 +2,13 @@ index:
     path: /
     controller: App\Controller\AppController::index
 
-dbtest:
-    path: /test/db
-    controller: App\Controller\AppController::db_test
+login:
+    path: /login
+    controller: App\Controller\AppController::login
+
+logout:
+     path: /logout
+
+addUser:
+    path: /addUser
+    controller: App\Controller\AppController::addUser

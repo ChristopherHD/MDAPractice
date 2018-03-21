@@ -12,10 +12,15 @@
         <div class="logo"><a href="{{ path("index") }}"><img src="https://image.flaticon.com/icons/svg/119/119058.svg" class="svg-inject" alt="Logo" /></a><a href="{{ path("index") }}">G-Med</a></div>
         <div class="page-title">{% block page_title %}Portal{% endblock %}</div>
         <div class="menu">
-            <div class="menu-item"><a href="{{ path("dbtest") }}">Test</a></div>
-            <div class="menu-item"><a href="">Link2</a></div>
-            <div class="menu-item"><a href="">Link3</a></div>
-            {% block menu_items %}{% endblock %}
+            {% block menu_items_start %}{% endblock %}
+
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="menu-item"><a href="{{ path("logout") }}">Log-out</a></div>
+            {% else %}
+                <div class="menu-item"><a href="{{ path("addUser") }}">Sign-up</a></div>
+                <div class="menu-item"><a href="{{ path("login") }}">Log-in</a></div>
+            {% endif %}
+            {% block menu_items_end %}{% endblock %}
         </div>
     </div>
         <div class="content">

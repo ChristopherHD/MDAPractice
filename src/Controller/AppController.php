@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Users;
+use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AppController extends Controller
@@ -11,7 +12,28 @@ class AppController extends Controller
 
         return $this->render('index.html.twig');
     }
-    public function db_test()
+
+    public function login(){
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            return $this->redirectToRoute('index');
+        }
+        $user= new Users();
+        $form = $this->createForm(LoginType::class, $user);
+        /*
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $user = $form->getData();
+        }
+        */
+        return $this->render('login.html.twig', array(
+            'form' => $form->createView(),
+            'name' => $form->getName(),
+        ));
+    }
+
+    public function addUser()
     {
         $entityManager = $this->getDoctrine()->getManager();
 

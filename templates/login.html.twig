@@ -1,0 +1,13 @@
+{% extends 'index.html.twig' %}
+{% block title %}DB Test{% endblock %}
+{% block page_title %}DB Test{% endblock %}
+{% block content %}
+    <div class="block">
+        <div class="block-title">{{ name }}</div>
+        <p>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </p>
+    </div>
+{% endblock %}
