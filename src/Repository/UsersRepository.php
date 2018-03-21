@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -61,5 +64,24 @@ class UsersRepository extends ServiceEntityRepository
         } catch (NonUniqueResultException $e) {
             return null;
         }
+    }
+    public function addUser(?Users $user)
+    {
+        $em = $this->getEntityManager();
+        try {
+            $em->persist($user);
+            $em->flush();
+        } catch (OptimisticLockException $e) {
+            return $e;
+
+        } catch( \PDOException $e ) {
+            return $e;
+
+        } catch(UniqueConstraintViolationException $e){
+            return 'Duplicated User';
+        } catch (ORMException $e) {
+            return $e;
+        }
+        return null;
     }
 }

@@ -11,10 +11,20 @@
 
 
 }
+.footer{
+    text-align: center;
+    color:#365899;
+    background-color:#f2f3f5;
+    font-size: 80%;
+}
 a{
     text-decoration: none;
     color:white;
     font-family: 'Lato', sans-serif;
+}
+a:hover{
+    text-decoration: none;
+    color:yellow;
 }
 .menu{
     display:flex;
@@ -86,10 +96,14 @@ html,body{
 
 }
 
-.block p{
-    margin: 10px 10% 10px 10%;
+.block .center{
+    margin: 15px 10% 10px 10%;
     font-size: 80%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
 }
+
 
 .block-title{
     text-align:center;
@@ -102,10 +116,28 @@ html,body{
     font-size: 100%;
 
 }
-.footer{
-    text-align: center;
-    color:#365899;
+
+.block .form{
+    margin: 15px 10% 10px 10%;
+    align-self: center;
+    width:80%;
+    max-width: 500px;
+ }
+.block .form2{
+    margin: 15px 10% 10px 10%;
+    align-self: center;
+    width:80%;
+    max-width: 700px;
 }
+.col-sm-2{
+    font-weight: bold;
+}
+.btn-secondary{
+    background-color: #718C00;
+}
+
+
+
 
 /************************Icon Styles|Mejor en otro archivo***************************/
 /*Strong signal*/

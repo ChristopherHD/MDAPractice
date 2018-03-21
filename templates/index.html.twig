@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>G-Med:{% block title %}Portal{% endblock %}</title>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ asset('index.css') }}">
         {% block stylesheets %}{% endblock %}
     </head>
@@ -27,10 +28,10 @@
         {% block content %}
             <div class="block">
                 <div class="block-title">Welcome!</div>
-                <p>Under Construction</p>
+                <div class="center">Under Construction</div>
             </div>
         {% endblock %}
         </div>
-    <div class="footer">Created by Elio García, Samuel Falcón and Christopher - 2018</div>
+    <div class="footer">Symfony&ensp;Web&ensp;created&ensp;by&ensp;Elio García,&ensp;Samuel Falcón&ensp;and&ensp;Christopher&ensp;-&ensp;2018</div>
     </body>
 </html>
