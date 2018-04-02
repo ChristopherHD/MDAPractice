@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Users|null findOneBy(array $criteria, array $orderBy = null)
  * @method Users[]    findAll()
  * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Users[]    findByMedicList(id $id)
  */
 class UsersRepository extends ServiceEntityRepository
 {
@@ -53,6 +54,24 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
+	 public function findByMedicList($id): array
+    {
+		$conn = $this->getEntityManager()->getConnection();
+		$sql = '
+			SELECT * FROM `users` 
+			JOIN `appointments` 
+			ON users.id = appointments.doctor 
+			WHERE appointments.patient = :id
+			';
+		$stmt = $conn->prepare($sql);
+		$stmt->execute([':id' => $id]);
+		return $stmt->fetchAll();
+		
+		/*$em = $this->getEntityManager();
+		$query = $em->createQuery("SELECT a FROM App\Entity\Users u, App\Entity\Appointments a WHERE u.id = ?1 and a.patient = ?1")->setParameter('1', $id);
+		return $query->execute();*/
+    }
+	
     public function findByApiKey($value): ?Users
     {
         try {

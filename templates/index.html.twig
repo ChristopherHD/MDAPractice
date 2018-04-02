@@ -16,6 +16,7 @@
             {% block menu_items_start %}{% endblock %}
 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="menu-item"><a href="{{ path("citas") }}">Ver citas</a></div>
                 <div class="menu-item"><a href="{{ path("logout") }}">Log-out</a></div>
             {% else %}
                 <div class="menu-item"><a href="{{ path("addUser") }}">Sign-up</a></div>
