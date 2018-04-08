@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AppointmentsRepository")
  */
@@ -17,12 +18,16 @@ class Appointments
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var integer $patient
+	 * @ORM\ManyToOne(targetEntity="Users")
+	 * @ORM\JoinColumn(name="patient", referencedColumnName="id")
      */
     private $patient;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var integer $doctor
+	 * @ORM\ManyToOne(targetEntity="Users")
+	 * @ORM\JoinColumn(name="doctor", referencedColumnName="id")
      */
     private $doctor;
 

@@ -34,3 +34,4 @@ security:
 
          #- { path: ^/test/db, roles: ROLE_USER }
          - { path: ^/users/, roles: ROLE_USER }
+         - { path: ^/citas, roles: IS_AUTHENTICATED_FULLY }

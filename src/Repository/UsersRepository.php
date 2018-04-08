@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Users;
+use App\Entity\Appointments;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\NonUniqueResultException;
@@ -54,9 +55,9 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
-	 public function findByMedicList($id): array
+	 public function findByMedicList($id): Array
     {
-		$conn = $this->getEntityManager()->getConnection();
+		/*$conn = $this->getEntityManager()->getConnection();
 		$sql = '
 			SELECT * FROM `users` 
 			JOIN `appointments` 
@@ -65,7 +66,15 @@ class UsersRepository extends ServiceEntityRepository
 			';
 		$stmt = $conn->prepare($sql);
 		$stmt->execute([':id' => $id]);
-		return $stmt->fetchAll();
+		return $stmt->fetchAll();*/
+		// SELECT * FROM `users` JOIN `appointments` WHERE appointments.patient = 1 and users.id = appointments.patient 
+		return $this->createQueryBuilder('users')
+				->join('App\Entity\Appointments', 'appointments')
+				->addSelect('appointments')
+                ->where('users.id = appointments.doctor and appointments.patient = :ids')
+                ->setParameter('ids', $id)
+                ->getQuery()
+                ->execute();
 		
 		/*$em = $this->getEntityManager();
 		$query = $em->createQuery("SELECT a FROM App\Entity\Users u, App\Entity\Appointments a WHERE u.id = ?1 and a.patient = ?1")->setParameter('1', $id);

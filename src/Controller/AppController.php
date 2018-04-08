@@ -22,18 +22,21 @@ class AppController extends Controller
 	{
 		
         if($this->getUser()->getRoles()[0] == 'ROLE_DOC'){
-			/*$appointments = $this->getDoctrine()->getRepository(Appointments::class)->findBy(
-				['doctor' => $this->getUser()->getId()],
-				['date' => 'ASC']
-			);*/
-		} else {
-			$appointments = $this->getDoctrine()->getRepository(Users::class)->findByMedicList(
+			
+			$appointments = $this->getDoctrine()->getRepository(Appointments::class)->findByMedicId(
 				$this->getUser()->getId()
 			);
+			return $this->render('appointments_doctor.html.twig', array(
+				'appointments' => $appointments));
+				
+		} else {
+			
+			$appointments = $this->getDoctrine()->getRepository(Appointments::class)->findByPatientId(
+				$this->getUser()->getId()
+			);
+			return $this->render('appointments_patient.html.twig', array(
+				'appointments' => $appointments));
 		}
-		
-		return $this->render('citas.html.twig', array(
-            'appointments' => $appointments));
 	}
 	
     public function login(){

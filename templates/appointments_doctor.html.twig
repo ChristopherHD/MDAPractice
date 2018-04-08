@@ -4,15 +4,13 @@
 
 	{% if app.user.roles[0] == 'ROLE_DOC' %}
 	
-		<!--  Mostrar citas del médico  -->
-		
-	{% else %}
-	
 		{% for appoint in appointments %}
+		
 			<div class="block">
 				<div class="block-title"> {{ appoint.date | date('m-d-Y H:i:s') }} </div>
-				<div class="center">Cita con el doctor: {{ appoint.name }} </div>
+				<div class="center">Cita con el paciente: {{ appoint.patient.username }} </div>
 			</div>	
+			
 		{% endfor %}
 	
 	{% endif %}
