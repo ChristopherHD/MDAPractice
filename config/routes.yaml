@@ -12,6 +12,6 @@ logout:
 addUser:
     path: /addUser
     controller: App\Controller\AppController::addUser
-citas:
-    path: /citas
-    controller: App\Controller\AppController::citas
+appointments:
+    path: /patient/appointments
+    controller: App\Controller\PatientController::index

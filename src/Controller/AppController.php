@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Entity\Users;
-use App\Entity\Appointments;
 use App\Form\LoginType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
@@ -18,27 +17,6 @@ class AppController extends Controller
         return $this->render('index.html.twig');
     }
 
-	public function citas()
-	{
-		
-        if($this->getUser()->getRoles()[0] == 'ROLE_DOC'){
-			
-			$appointments = $this->getDoctrine()->getRepository(Appointments::class)->findByMedicId(
-				$this->getUser()->getId()
-			);
-			return $this->render('appointments_doctor.html.twig', array(
-				'appointments' => $appointments));
-				
-		} else {
-			
-			$appointments = $this->getDoctrine()->getRepository(Appointments::class)->findByPatientId(
-				$this->getUser()->getId()
-			);
-			return $this->render('appointments_patient.html.twig', array(
-				'appointments' => $appointments));
-		}
-	}
-	
     public function login(){
         if($this->isGranted('IS_AUTHENTICATED_FULLY')){
             return $this->redirectToRoute('index');

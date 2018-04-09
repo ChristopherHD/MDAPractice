@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Users;
-use App\Entity\Appointments;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\NonUniqueResultException;
@@ -16,7 +15,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Users|null findOneBy(array $criteria, array $orderBy = null)
  * @method Users[]    findAll()
  * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method Users[]    findByMedicList(id $id)
  */
 class UsersRepository extends ServiceEntityRepository
 {
@@ -55,7 +53,7 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
-	 public function findByMedicList($id): Array
+	 public function findByMedicList($id)
     {
 		/*$conn = $this->getEntityManager()->getConnection();
 		$sql = '

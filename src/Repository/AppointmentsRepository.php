@@ -19,7 +19,7 @@ class AppointmentsRepository extends ServiceEntityRepository
         parent::__construct($registry, Appointments::class);
     }
 
-	public function findByPatientId($id): Array
+	public function findByPatientId($id): array
     {
 		return $this->createQueryBuilder('a')
 				->join("a.doctor", "u")
@@ -30,7 +30,7 @@ class AppointmentsRepository extends ServiceEntityRepository
                 ->getArrayResult();
     }
 		
-	public function findByMedicId($id): Array
+	public function findByMedicId($id): array
     {
 		return $this->createQueryBuilder('a')
 				->join("a.patient", "u")

@@ -33,5 +33,4 @@ security:
     access_control:
 
          #- { path: ^/test/db, roles: ROLE_USER }
-         - { path: ^/users/, roles: ROLE_USER }
-         - { path: ^/citas, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/patient/, roles: ROLE_USER }
