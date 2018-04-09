@@ -10,6 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Appointments
 {
+
+    public function __construct($patient=null, $doctor=null, $date=null)
+    {
+        $this->$patient = $patient;
+        $this->$doctor = $doctor;
+        $this->$date = $date;
+
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

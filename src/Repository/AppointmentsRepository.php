@@ -4,6 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Appointments;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -39,6 +42,26 @@ class AppointmentsRepository extends ServiceEntityRepository
 				->setParameter('id', $id)
                 ->getQuery()
                 ->getArrayResult();
+    }
+
+    public function addAppointment(?Appointments $appointment)
+    {
+        $em = $this->getEntityManager();
+        try {
+            $em->persist($appointment);
+            $em->flush();
+        } catch (OptimisticLockException $e) {
+            return $e;
+
+        } catch(UniqueConstraintViolationException $e){
+            return 'Duplicated Appointment';
+        } catch (ORMException $e) {
+            return $e;
+        } catch( \PDOException $e )
+        {
+        return $e;
+        }
+        return null;
     }
 	
 }
