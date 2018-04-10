@@ -43,7 +43,16 @@ class AppointmentsRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getArrayResult();
     }
-
+	public function findByDate($date)
+	{
+		
+		return $this->createQueryBuilder('a')
+				->addSelect("a")
+				->where("a.date = :date")
+				->setParameter('date', $date)
+                ->getQuery()
+                ->getArrayResult();
+	}
     public function addAppointment(?Appointments $appointment)
     {
         $em = $this->getEntityManager();

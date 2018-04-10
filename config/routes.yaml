@@ -15,3 +15,6 @@ addUser:
 appointments:
     path: /patient/appointments
     controller: App\Controller\PatientController::index
+date:
+    path: /patient/date
+    controller: App\Controller\PatientController::addAppointment

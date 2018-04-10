@@ -25,7 +25,7 @@ class AppointmentsGenerator
         $this->logger = $logger;
         $this->ar = $ar;
     }
-    public function generate($medicId)
+    public function generate()
     {
         //$gen = $this->session->get("gen");
         $date = new \DateTime();
@@ -33,7 +33,7 @@ class AppointmentsGenerator
         $date->setTime(9,0,0);
 
         while(true){
-            if(empty($this->ar->findByMedicId($medicId))){
+            if(empty($this->ar->findByDate($date))){
                 return $date;
             }else{
                 if($date->format('H')>13){
