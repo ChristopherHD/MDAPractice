@@ -19,11 +19,15 @@ class PatientController extends Controller
         return $this->render('appointments_patient.html.twig', array(
             'appointments' => $appointments));
 	}
-    public function addAppointment(Request $request, AppointmentsRepository $ar, AppointmentsGenerator $ag)
+    public function addAppointment(Request $request, AppointmentsRepository $ar, AppointmentsGenerator $ag, UsersRepository $ur)
     {
+		$userId = $this->getUser();
+		$doctor  = $ur->findById(25);
         $date=$ag->generate();
-        if(!isset($date)){
-            $ar->addAppointment(new Appointments($userId,$doctor,$date));
+        if(isset($date)){
+			$date = $date;
+			$appointment=new Appointments($userId,$doctor,$date);
+            $ar->addAppointment($appointment);
             return $this->redirectToRoute('index');
         }else{
             //generate appointment (Especialidad, Rango)

@@ -13,9 +13,9 @@ class Appointments
 
     public function __construct($patient=null, $doctor=null, $date=null)
     {
-        $this->$patient = $patient;
-        $this->$doctor = $doctor;
-        $this->$date = $date;
+        $this->patient = $patient;
+        $this->doctor = $doctor;
+        $this->date = $date;
 
     }
 
