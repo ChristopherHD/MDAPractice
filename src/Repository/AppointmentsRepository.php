@@ -33,7 +33,7 @@ class AppointmentsRepository extends ServiceEntityRepository
                 ->getArrayResult();
     }
 		
-	public function findByMedicId($id): array
+	public function findByDoctorId($id): array
     {
 		return $this->createQueryBuilder('a')
 				->join("a.patient", "u")
@@ -43,6 +43,15 @@ class AppointmentsRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getArrayResult();
     }
+	public function remove($id)
+	{
+		return $this->createQueryBuilder('a')
+				->delete()
+				->where("a.id = :id")
+				->setParameter('id', $id)
+                ->getQuery()
+				->execute();
+	}
 	public function findByDate($date)
 	{
 		

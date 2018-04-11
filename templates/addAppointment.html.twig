@@ -6,8 +6,12 @@
     <div class="block">
         <div class="block-title">Filter Options </div>
         <div class="center">
-			{{ date }}
-		<a href='{{ path(persistenceAppointment) }}'>
+		<p>
+			{{ date.format('Y-m-d H') }}
+		</p>
+		<p>	
+			<a href='/appointments/add?date={{ date.format('Y-m-d H:i:s') }}'>Aceptar</a>
+		 </p>
         </div>
     </div>
 {% endblock %}

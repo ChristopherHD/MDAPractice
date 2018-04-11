@@ -33,4 +33,6 @@ security:
     access_control:
 
          #- { path: ^/test/db, roles: ROLE_USER }
+         - { path: ^/appointments/, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/patient/, roles: ROLE_USER }
+         - { path: ^/appointment/add, roles: ROLE_USER }

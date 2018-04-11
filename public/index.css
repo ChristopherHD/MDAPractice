@@ -136,7 +136,13 @@ html,body{
     background-color: #718C00;
 }
 
-
+.center p a{
+	color:blue;
+}
+.center{
+	display:flex;
+	flex-direction:column;
+}
 
 
 /************************Icon Styles|Mejor en otro archivo***************************/

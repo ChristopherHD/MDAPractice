@@ -13,11 +13,14 @@ addUser:
     path: /addUser
     controller: App\Controller\AppController::addUser
 appointments:
-    path: /patient/appointments
-    controller: App\Controller\PatientController::index
-date:
-    path: /patient/date
-    controller: App\Controller\PatientController::addAppointment
-persistenceAppointment:
-    path: /appointment/add
+    path: /appointments/get
+    controller: App\Controller\AppointmentController::getAppointments
+generateAppointment:
+    path: /patient/generateAppointment
+    controller: App\Controller\AppointmentController::generateAppointment
+persistAppointment:
+    path: /appointments/add
     controller: App\Controller\AppointmentController::persistAppointment
+removeAppointment:
+    path: /appointments/remove
+    controller: App\Controller\AppointmentController::removeAppointment

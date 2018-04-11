@@ -64,33 +64,6 @@ class UsersRepository extends ServiceEntityRepository
             return null;
         }
     }
-
-	 public function findByMedicList($id)
-    {
-		/*$conn = $this->getEntityManager()->getConnection();
-		$sql = '
-			SELECT * FROM `users` 
-			JOIN `appointments` 
-			ON users.id = appointments.doctor 
-			WHERE appointments.patient = :id
-			';
-		$stmt = $conn->prepare($sql);
-		$stmt->execute([':id' => $id]);
-		return $stmt->fetchAll();*/
-		// SELECT * FROM `users` JOIN `appointments` WHERE appointments.patient = 1 and users.id = appointments.patient 
-		return $this->createQueryBuilder('users')
-				->join('App\Entity\Appointments', 'appointments')
-				->addSelect('appointments')
-                ->where('users.id = appointments.doctor and appointments.patient = :ids')
-                ->setParameter('ids', $id)
-                ->getQuery()
-                ->execute();
-		
-		/*$em = $this->getEntityManager();
-		$query = $em->createQuery("SELECT a FROM App\Entity\Users u, App\Entity\Appointments a WHERE u.id = ?1 and a.patient = ?1")->setParameter('1', $id);
-		return $query->execute();*/
-    }
-	
     public function findByApiKey($value): ?Users
     {
         try {
