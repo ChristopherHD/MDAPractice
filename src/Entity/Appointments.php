@@ -29,14 +29,14 @@ class Appointments
     /**
      * @var integer $patient
 	 * @ORM\ManyToOne(targetEntity="Users")
-	 * @ORM\JoinColumn(name="patient", referencedColumnName="id")
+	 * @ORM\JoinColumn(name="patient", referencedColumnName="dni")
      */
     private $patient;
 
     /**
      * @var integer $doctor
-	 * @ORM\ManyToOne(targetEntity="Users")
-	 * @ORM\JoinColumn(name="doctor", referencedColumnName="id")
+	 * @ORM\ManyToOne(targetEntity="Doctors")
+	 * @ORM\JoinColumn(name="doctor", referencedColumnName="dni")
      */
     private $doctor;
 

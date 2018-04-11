@@ -39,19 +39,6 @@ class UsersRepository extends ServiceEntityRepository
         ;
     }
     */
-
-	public function findById($value)
-	{
-		try {
-            return $this->createQueryBuilder('u')
-                ->andWhere('u.id = :val')
-                ->setParameter('val', $value)
-                ->getQuery()
-                ->getOneOrNullResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        }
-	}
     public function findByDni($value): ?Users
     {
         try {

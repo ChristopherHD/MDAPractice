@@ -8,6 +8,8 @@ use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AppController extends Controller
 {
@@ -16,27 +18,23 @@ class AppController extends Controller
         return $this->render('index.html.twig');
     }
 
-    public function login(){
-        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
-            return $this->redirectToRoute('index');
+    public function login(AuthenticationUtils $authenticationUtils){
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        $form = $this->createForm(LoginType::class, ['dni'=>$lastUsername]);
+        if($error !=null){
+            $form->addError(new FormError($error->getMessageKey()));
         }
-        $user= new Users();
-        $form = $this->createForm(LoginType::class, $user);
-        /*
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $user = $form->getData();
-        }
-        */
         return $this->render('login.html.twig', array(
             'form' => $form->createView(),
-            'name' => $form->getName(),
+            'error'=> $error,
         ));
     }
 
-    public function addUser(Request $request, UsersRepository $ur)
+    public function addUser(Request $request, UsersRepository $ur, UserPasswordEncoderInterface $passwordEncoder)
     {
         $error = null;
         $user= new Users();
@@ -44,8 +42,10 @@ class AppController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
             $error = $ur->addUser($user);
+
             if($error==null){
                 return $this->redirectToRoute('index');
             }else{
@@ -55,7 +55,6 @@ class AppController extends Controller
 
         return $this->render('adduser.html.twig', array(
             'form' => $form->createView(),
-            'error' => $error,
         ));
     }
     public function test()

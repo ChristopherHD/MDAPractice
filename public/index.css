@@ -1,3 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 4, 2018, 9:38:02 AM
+    Author     : Elio
+*/
+th,td{
+    word-wrap: break-word;
+}
+
 .header{
     display:flex;
 
@@ -17,14 +30,29 @@
     background-color:#f2f3f5;
     font-size: 80%;
 }
+.menu-item a{
+    color:white;
+
+}
+.menu-item a:hover{
+
+    color:yellow;
+}
+.logo a{
+    color:white;
+}
+.logo a:hover{
+    color:white;
+}
 a{
     text-decoration: none;
-    color:white;
-    font-family: 'Lato', sans-serif;
+    color:#1d2129;
+    font-family: 'Lato', sans-serif; 
 }
 a:hover{
-    text-decoration: none;
-    color:yellow;
+
+    color:greenyellow;
+
 }
 .menu{
     display:flex;
@@ -40,6 +68,19 @@ a:hover{
     align-items: center;
     font-size: 120%;
     flex:1;
+}
+p a{
+    color:greenyellow;
+}
+tr td a{
+    color:blue;
+}
+
+tr td a:hover{
+    color:#4CAF50;
+}
+.redhover:hover{
+    color:red;
 }
 
 .logo img{
@@ -81,7 +122,18 @@ html,body{
 .menu-item{
     margin:8px;
 }
+.textarea{
+    display:flex;
+}
+.button_block{
 
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 15px 10% 10px 10%;
+
+
+}
 .block{
     padding:0 0 8px 0;
     margin:25px 25px 25px 25px;
@@ -97,11 +149,15 @@ html,body{
 }
 
 .block .center{
-    margin: 15px 10% 10px 10%;
+    padding: 15px 10% 10px 10%;
     font-size: 80%;
     display: flex;
     justify-content: center;
     align-self: center;
+    align-items: center;
+    width: 80%;
+    flex-direction: column
+
 }
 
 
@@ -129,6 +185,7 @@ html,body{
     width:80%;
     max-width: 700px;
 }
+
 .col-sm-2{
     font-weight: bold;
 }
@@ -136,13 +193,7 @@ html,body{
     background-color: #718C00;
 }
 
-.center p a{
-	color:blue;
-}
-.center{
-	display:flex;
-	flex-direction:column;
-}
+
 
 
 /************************Icon Styles|Mejor en otro archivo***************************/
@@ -187,4 +238,24 @@ html,body{
     stroke:#848484;
     opacity:.3;
     stroke-width:.5;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+.button:hover {
+    opacity:1;
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+-moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
 }

@@ -2,26 +2,16 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DoctorsRepository")
  */
-class Users implements UserInterface
+class Doctors implements UserInterface
 {
-
-    public function __construct($username=null, $password=null, $dni=null, $social_security_number=null, $birthdate=null, $phone=null)
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->dni = $dni;
-        $this->social_security_number = $social_security_number;
-        $this->birthdate = $birthdate;
-        $this->phone = $phone;
-
-    }
     /**
      * @ORM\Id()
      * @ORM\Column(type="string",length=10)
@@ -34,20 +24,14 @@ class Users implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=25)
-     */
-
-    private $social_security_number;
-
-    /**
      * @ORM\Column(type="string", length=20)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=10)
      */
-    private $birthdate;
+    private $specialty;
 
     /**
      * @Assert\NotBlank()
@@ -61,77 +45,19 @@ class Users implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @return mixed
      */
-    private $medical_history;
-
-
-    public function getUsername(): ?string
+    public function getUsername()
     {
         return $this->username;
     }
 
-    public function setUsername(string $name): self
-    {
-        $this->username = $name;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getMedicalHistory(): ?string
-    {
-        return $this->medical_history;
-    }
-
-    public function setMedicalHistory(?string $medical_history): self
-    {
-        $this->medical_history = $medical_history;
-
-        return $this;
-    }
-
     /**
-     * @return mixed
+     * @param mixed $username
      */
-    public function getBirthdate()
+    public function setUsername($username): void
     {
-        return $this->birthdate;
-    }
-
-    /**
-     * @param mixed $birthdate
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSocialSecurityNumber()
-    {
-        return $this->social_security_number;
-    }
-
-    /**
-     * @param mixed $social_security_number
-     */
-    public function setSocialSecurityNumber($social_security_number)
-    {
-        $this->social_security_number = $social_security_number;
+        $this->username = $username;
     }
 
     /**
@@ -145,9 +71,41 @@ class Users implements UserInterface
     /**
      * @param mixed $phone
      */
-    public function setPhone($phone)
+    public function setPhone($phone): void
     {
         $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpecialty()
+    {
+        return $this->specialty;
+    }
+
+    /**
+     * @param mixed $specialty
+     */
+    public function setSpecialty($specialty): void
+    {
+        $this->specialty = $specialty;
     }
 
     /**
@@ -168,8 +126,7 @@ class Users implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
-
+        return array('ROLE_DOC');
     }
 
     /**
@@ -227,4 +184,3 @@ class Users implements UserInterface
         $this->plainPassword = $plainPassword;
     }
 }
-

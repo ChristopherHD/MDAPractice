@@ -1,10 +1,25 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        db:
+        users:
+            chain:
+                providers: [normal, doctors]
+        normal:
             entity:
                 class: App\Entity\Users
                 property: dni
+        doctors:
+            entity:
+                class: App\Entity\Doctors
+                property: dni
+
+    encoders:
+        App\Entity\Users:
+            algorithm: bcrypt
+            cost: 12
+        App\Entity\Doctors:
+            algorithm: bcrypt
+            cost: 12
 
     firewalls:
         dev:
@@ -16,10 +31,13 @@ security:
                 path:   /logout
                 target: /
 
-            guard:
-                authenticators:
-                    - App\Security\UserAuthenticator
-
+            form_login:
+                provider: users
+                login_path: login
+                check_path: login
+                default_target_path: index
+                username_parameter: login[dni]
+                password_parameter: login[plainPassword]
             # activate different ways to authenticate
 
             # http_basic: true

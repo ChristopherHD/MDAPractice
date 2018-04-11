@@ -8,12 +8,12 @@
 
 namespace App\Form;
 
-use function Sodium\add;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
+
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,7 +26,7 @@ class UserType extends AbstractType
             ->add('username',TextType::class)
             ->add('dni', TextType::class)
             ->add('social_security_number', TextType::class,array('label'=>'Tax Number',))
-            ->add('password', PasswordType::class)
+            ->add('plainPassword', PasswordType::class)
             ->add('birthdate', BirthdayType::class)
             ->add('phone', NumberType::class)
             ->add('create', SubmitType::class);
