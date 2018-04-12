@@ -1,6 +1,6 @@
 {% extends 'index.html.twig' %}
 {% block title %}Appointments{% endblock %}
-{% block page_title %}Add Appointment{% endblock %}
+{% block page_title %}New Appointment{% endblock %}
 {% block content %}
 {# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
     <div class="block">
@@ -8,7 +8,7 @@
 
         <div class="center">
         <form action={{ path('generateAppointment') }}>
-		<p>
+		<p>Time Range: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <select name="selector">
 
                     {% if cond=='AM' %}
@@ -19,18 +19,26 @@
                     <option value="PM"selected>PM</option>
                     {% endif %}
                 </select>
-            <input type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
+            <input class='button'type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
 
 		</p>
-		<p>
-            {{ date.format('Y-m-d H') }}
-            <p>
-                <a href='{{ path('persistAppointment', {'date': date.format('Y-m-d H:i:s')}) }}'>Acept</a>
-                <button>Next</button>
-            </p>
-		 </p>
+		<div class="dateTimeBlock">
+            <div class="dateTime">
+                <div>Date: {{ date.format('Y-m-d') }}</div>
+                <div>Hour: {{ date.format('H:i') }}</div>
+            </div>
+                <input class='button2' type='submit' name='enter' value='Next'>
+
+		 </div>
             </form>
         </div>
+    </div>
+    <div class=button_block>
+            <form action='{{ path('persistAppointment') }}'>
+                <b>{{ date.format('Y-m-d H:i') }}</b>
+                <input type='hidden' name='date' value='{{ date.format('Y-m-d H:i:s') }}'>
+                <input class='button' type='submit' name='enter' value='Acept'>
+            </form>
     </div>
 {% endblock %}
 

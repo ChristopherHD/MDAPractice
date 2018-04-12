@@ -14,7 +14,7 @@
 			<div class="block">
 				<div class="block-title"> {{ appoint.date | date('m-d-Y H:i:s') }} </div>
 				<div class="center">{{ text }}
-					<a href='/appointments/remove?id={{ appoint.id }}'>Remove</a>
+					<a class="redhover" href='/appointments/remove?id={{ appoint.id }}'>Remove</a>
 				</div>
 			</div>	
 		{% endfor %}
