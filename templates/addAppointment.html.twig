@@ -5,23 +5,31 @@
 {# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
     <div class="block">
         <div class="block-title">Filter Options </div>
-        <div class="center">
 
+        <div class="center">
+        <form action={{ path('generateAppointment') }}>
 		<p>
-            <select>
-                <option value="volvo">AM</option>
-                <option value="saab">PM</option>
-            </select>
+                <select name="selector">
+
+                    {% if cond=='AM' %}
+                    <option value="AM" selected>AM</option>
+                    <option value="PM">PM</option>
+                    {% else %}
+                    <option value="AM" >AM</option>
+                    <option value="PM"selected>PM</option>
+                    {% endif %}
+                </select>
+            <input type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
+
 		</p>
 		<p>
             {{ date.format('Y-m-d H') }}
             <p>
-
                 <a href='{{ path('persistAppointment', {'date': date.format('Y-m-d H:i:s')}) }}'>Acept</a>
-                <a href='{{ path('generateAppointment', {'date': date.format('Y-m-d H:i:s'),'options': 'm' }) }}'>Next</a>
+                <button>Next</button>
             </p>
-
 		 </p>
+            </form>
         </div>
     </div>
 {% endblock %}

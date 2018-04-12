@@ -29,28 +29,36 @@ class AppointmentsGenerator
         $this->ar = $ar;
         $this->dr = $dr;
     }
-    public function generate($previousDate)
+    public function generate($previousDate, $option)
     {
+        if($option == "AM"){
+            $initHour=9;
+            $endHour=13;
+        }else{
+            $initHour=14;
+            $endHour=19;
+        }
+
         if(isset($previousDate)){
             $date = new \DateTime($previousDate);
-            $date->modify("+1 hour");
+
         }else{
             $date = new \DateTime();
-            $date->modify("+1 day");
-            $date->setTime(9,0,0);
     }
         while(true){
-            if(empty($this->ar->findByDate($date))){
-                return $date;
-            }else{
-                if($date->format('H')>18){
+            if($date->format('H')<$initHour){
+                $date->setTime($initHour,0,0);
+            }
+                if($date->format('H')>$endHour){
                     $date->modify("+1 day");
-                    $date->setTime(9,0,0);
+                    $date->setTime($initHour,0,0);
                 }else{
                     $date->modify("+1 hour");
                 }
-
+            if(empty($this->ar->findByDate($date))){
+                return $date;
             }
+
         }
         return null;
     }

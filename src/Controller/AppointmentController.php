@@ -32,10 +32,10 @@ class AppointmentController extends Controller
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
     {
         $previousDate= $request->get('date');
-        $options=
-        $date=$ag->generate($previousDate);
+        $options=$request->get('selector');
+        $date=$ag->generate($previousDate, $options);
         if(isset($date)){
-            return $this->render('addAppointment.html.twig', array('date' => $date));
+            return $this->render('addAppointment.html.twig', array('date' => $date,'cond'=>$options));
         }else{
             //generate appointment (Especialidad, Rango)
 
