@@ -20,7 +20,7 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('dni',TextType::class)
-            ->add('plainPassword', PasswordType::class)
-            ->add('log in', SubmitType::class);
+            ->add('plainPassword', PasswordType::class,array('label'=>'Password',))
+            ->add('log in', SubmitType::class, array("attr" => array("class" => "button")));
     }
 }

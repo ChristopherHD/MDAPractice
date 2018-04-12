@@ -26,10 +26,10 @@ class UserType extends AbstractType
             ->add('username',TextType::class)
             ->add('dni', TextType::class)
             ->add('social_security_number', TextType::class,array('label'=>'Tax Number',))
-            ->add('plainPassword', PasswordType::class)
+            ->add('plainPassword', PasswordType::class,array('label'=>'Password',))
             ->add('birthdate', BirthdayType::class)
             ->add('phone', NumberType::class)
-            ->add('create', SubmitType::class);
+            ->add('create', SubmitType::class, array("attr" => array("class" => "button")));
             //->add('cancel',ResetType::class);
     }
 }

@@ -187,7 +187,7 @@ html,body{
     margin: 15px 10% 10px 10%;
     align-self: center;
     width:80%;
-    max-width: 700px;
+    max-width: 500px;
 }
 
 .col-sm-2{
@@ -196,9 +196,6 @@ html,body{
 .btn-secondary{
     background-color: #718C00;
 }
-
-
-
 
 /************************Icon Styles|Mejor en otro archivo***************************/
 /*Strong signal*/
@@ -247,6 +244,7 @@ html,body{
 .button {
     background-color: #4CAF50; /* Green */
     border: none;
+    border-radius: unset;
     color: white;
     padding: 4px 14px;
     text-align: center;
@@ -297,4 +295,12 @@ box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+}
+.col-form-label{
+    font-size: 80%;
+    line-height: 1.2;
+}
+.form-control{
+    line-height: 1.2;
+    font-size: 80%;
 }
