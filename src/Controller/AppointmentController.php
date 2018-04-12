@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Appointments;
 use App\Repository\AppointmentsRepository;
+use App\Repository\DoctorsRepository;
 use App\Services\AppointmentsGenerator;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AppointmentController extends Controller
 {
+    private $ar;
 	public function __construct(AppointmentsRepository $ar)
     {
         $this->ar= $ar;
@@ -26,28 +28,28 @@ class AppointmentController extends Controller
         return $this->render('getAppointments.html.twig', array(
             'appointments' => $appointments));
 	}
-	
+
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
     {
-        $date=$ag->generate();
+        $previousDate= $request->get('date');
+        $options=
+        $date=$ag->generate($previousDate);
         if(isset($date)){
-			$date = $date;
             return $this->render('addAppointment.html.twig', array('date' => $date));
         }else{
             //generate appointment (Especialidad, Rango)
-            
+
 			return $this->redirectToRoute('index');
         }
     }
-	public function persistAppointment(Request $request, UsersRepository $ur)
+	public function persistAppointment(Request $request, AppointmentsGenerator $ag)
 	{
-		$userId = $this->getUser();
-		$doctor  = $ur->findById(25);
-		$date = new \DateTime($request->get('date')) ;	
-		
-		$appointment=new Appointments($userId,$doctor,$date);
-		$this->ar->addAppointment($appointment);
-		return $this->redirectToRoute('index');
+
+		$user = $this->getUser();
+
+		$date = $request->get('date') ;
+		$ag->persist($user,$date);
+		return $this->redirectToRoute('appointments');
 	}
 	
 	public function removeAppointment(Request $request)

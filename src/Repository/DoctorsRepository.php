@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Doctors;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -33,6 +36,26 @@ class DoctorsRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function addUser(?Doctors $user)
+    {
+        $em = $this->getEntityManager();
+        try {
+            $em->persist($user);
+            $em->flush();
+        } catch (OptimisticLockException $e) {
+            return $e;
+
+        } catch( \PDOException $e ) {
+            return $e;
+
+        } catch(UniqueConstraintViolationException $e){
+            return 'Duplicated User';
+        } catch (ORMException $e) {
+            return $e;
+        }
+        return null;
+    }
 //    /**
 //     * @return Doctors[] Returns an array of Doctors objects
 //     */

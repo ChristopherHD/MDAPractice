@@ -12,14 +12,20 @@ logout:
 addUser:
     path: /addUser
     controller: App\Controller\AppController::addUser
+addDoctor:
+    path: /addDoctor
+    controller: App\Controller\AppController::addDoctor
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments
 generateAppointment:
-    path: /patient/generateAppointment
+    path: /patient/generateAppointment/{date}{options}
     controller: App\Controller\AppointmentController::generateAppointment
+    defaults:
+      date: null
+      options: null
 persistAppointment:
-    path: /appointments/add
+    path: /appointments/add/{date}
     controller: App\Controller\AppointmentController::persistAppointment
 removeAppointment:
     path: /appointments/remove

@@ -1,9 +1,12 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Doctors;
 use App\Entity\Users;
+use App\Form\DoctorType;
 use App\Form\LoginType;
 use App\Form\UserType;
+use App\Repository\DoctorsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
@@ -57,6 +60,31 @@ class AppController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+    public function addDoctor(Request $request, DoctorsRepository $ur, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $error = null;
+        $user= new Doctors();
+        $form = $this->createForm(DoctorType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $error = $ur->addUser($user);
+
+            if($error==null){
+                return $this->redirectToRoute('index');
+            }else{
+                $form->addError(new FormError('Exception: '.$error));
+            }
+        }
+
+        return $this->render('adduser.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
     public function test()
     {
         $entityManager = $this->getDoctrine()->getManager();

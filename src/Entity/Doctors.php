@@ -29,7 +29,7 @@ class Doctors implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10 )
      */
     private $specialty;
 
@@ -156,6 +156,14 @@ class Doctors implements UserInterface
      * @return mixed
      */
     public function getDni()
+    {
+        return $this->dni;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->dni;
     }

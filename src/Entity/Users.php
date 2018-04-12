@@ -202,6 +202,13 @@ class Users implements UserInterface
     {
         return $this->dni;
     }
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->dni;
+    }
 
     /**
      * @param mixed $dni

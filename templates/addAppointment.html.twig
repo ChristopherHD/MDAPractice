@@ -6,12 +6,24 @@
     <div class="block">
         <div class="block-title">Filter Options </div>
         <div class="center">
+
 		<p>
-			{{ date.format('Y-m-d H') }}
+            <select>
+                <option value="volvo">AM</option>
+                <option value="saab">PM</option>
+            </select>
 		</p>
-		<p>	
-			<a href='/appointments/add?date={{ date.format('Y-m-d H:i:s') }}'>Aceptar</a>
+		<p>
+            {{ date.format('Y-m-d H') }}
+            <p>
+
+                <a href='{{ path('persistAppointment', {'date': date.format('Y-m-d H:i:s')}) }}'>Acept</a>
+                <a href='{{ path('generateAppointment', {'date': date.format('Y-m-d H:i:s'),'options': 'm' }) }}'>Next</a>
+            </p>
+
 		 </p>
         </div>
     </div>
 {% endblock %}
+
+
