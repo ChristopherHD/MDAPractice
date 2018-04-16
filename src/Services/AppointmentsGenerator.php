@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Entity\Appointments;
+use App\Controller\AppointmentsController;
 use App\Repository\AppointmentsRepository;
 use App\Repository\DoctorsRepository;
 use Psr\Log\LoggerInterface;
@@ -82,11 +83,16 @@ class AppointmentsGenerator
         return 0;
     }
 
-    public function persist($user,$date){
-        $doctor  = $this->dr->findByDni('doctor');
-        $date = new \DateTime($date) ;
+    public function persist($user,$date,$specialty,$description){
+		
+        $doctors = $this->dr->findBySpecialty($specialty);
+        if($doctors != null){
+			$doctor = $doctors[random_int(0, sizeof($doctors)-1)];
+			
+			$date = new \DateTime($date) ;
 
-        $appointment=new Appointments($user,$doctor,$date);
-        $this->ar->addAppointment($appointment);
+			$appointment=new Appointments($user,$doctor,$date,$description);
+			$this->ar->addAppointment($appointment);
+		}
     }
 }

@@ -33,13 +33,36 @@
             </form>
         </div>
     </div>
-    <div class=button_block>
-            <form action='{{ path('persistAppointment') }}'>
-                <b>{{ date.format('Y-m-d H:i') }}</b>
-                <input type='hidden' name='date' value='{{ date.format('Y-m-d H:i:s') }}'>
-                <input class='button' type='submit' name='enter' value='Acept'>
-            </form>
-    </div>
+	
+	<form action='{{ path('persistAppointment') }}'>
+	
+		<div class="block">
+			<div class="block-title"> Appointment information </div>
+			<div class="center">
+				<p>Doctor specialty: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+					<select name="specialty">
+						<option value="Neurology">Neurology</option>
+						<option value="Geriatrics">Geriatrics</option>
+						<option value="Pneumology">Pneumology</option>
+						<option value="Toxicology">Toxicology</option>
+						<option value="Oncology">Oncology</option>
+					</select>
+				</p>
+				
+				Description:
+				<p>
+					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none">Ninguna</textarea>
+				</p>
+				
+			</div>
+		</div>
+		
+		<div class=button_block>
+					<b>{{ date.format('Y-m-d H:i') }}</b>
+					<input type='hidden' name='date' value='{{ date.format('Y-m-d H:i:s') }}'>
+					<input class='button' type='submit' name='enter' value='Accept'>
+		</div>
+	</form>
 {% endblock %}
 
 

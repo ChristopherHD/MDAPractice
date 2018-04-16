@@ -36,6 +36,14 @@ class DoctorsRepository extends ServiceEntityRepository
         }
     }
 
+	public function findBySpecialty($value): ?array
+    {
+		return $this->createQueryBuilder('d')
+			->andWhere('d.specialty = :val')
+			->setParameter('val', $value)
+			->getQuery()
+			->getResult();
+    }
 
     public function addUser(?Doctors $user)
     {

@@ -48,7 +48,12 @@ class AppointmentController extends Controller
 		$user = $this->getUser();
 
 		$date = $request->get('date') ;
-		$ag->persist($user,$date);
+		
+		$specialty = $request->get('specialty');
+		
+		$description = $request->get('description');
+		
+		$ag->persist($user,$date,$specialty,$description);
 		return $this->redirectToRoute('appointments');
 	}
 	

@@ -11,12 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Appointments
 {
 
-    public function __construct($patient=null, $doctor=null, $date=null)
+    public function __construct($patient=null, $doctor=null, $date=null, $description="Ninguna")
     {
         $this->patient = $patient;
         $this->doctor = $doctor;
         $this->date = $date;
-
+		$this->description = $description;
     }
 
     /**
@@ -44,6 +44,11 @@ class Appointments
      * @ORM\Column(type="datetime")
      */
     private $date;
+	
+    /**
+     * @ORM\Column(type="string", length=200 )
+     */
+    private $description;
 
     public function getId()
     {
@@ -82,6 +87,18 @@ class Appointments
     public function setDatetime(\DateTimeInterface $date): self
     {
         $this->datetime = $date;
+
+        return $this;
+    }
+	
+	public function getDescription(): ?string
+    {
+        return $this->doctor;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

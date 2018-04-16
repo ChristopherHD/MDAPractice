@@ -29,7 +29,7 @@ class Doctors implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=10 )
+     * @ORM\Column(type="string", length=15 )
      */
     private $specialty;
 
