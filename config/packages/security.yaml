@@ -3,7 +3,7 @@ security:
     providers:
         users:
             chain:
-                providers: [normal, doctors]
+                providers: [normal, doctors, admins]
         normal:
             entity:
                 class: App\Entity\Users
@@ -12,12 +12,18 @@ security:
             entity:
                 class: App\Entity\Doctors
                 property: dni
-
+        admins:
+            entity:
+                class: App\Entity\Admins
+                property: dni
     encoders:
         App\Entity\Users:
             algorithm: bcrypt
             cost: 12
         App\Entity\Doctors:
+            algorithm: bcrypt
+            cost: 12
+        App\Entity\Admins:
             algorithm: bcrypt
             cost: 12
 
@@ -51,6 +57,6 @@ security:
     access_control:
 
          #- { path: ^/test/db, roles: ROLE_USER }
-         - { path: ^/appointments/, roles: IS_AUTHENTICATED_FULLY }
-         - { path: ^/patient/, roles: ROLE_USER }
-         - { path: ^/appointment/add, roles: ROLE_USER }
+         - { path: ^/appointments/get, roles: [ROLE_USER, ROLE_DOCTOR] }
+         - { path: ^/appointments/, roles: ROLE_USER }
+         - { path: ^/admins/, roles: ROLE_ADMIN }

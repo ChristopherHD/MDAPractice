@@ -7,17 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @property \DateTimeInterface datetime
- * @ORM\Entity(repositoryClass="App\Repository\AppointmentsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\IncidentsRepository")
  */
-class Appointments
+class Incidents
 {
 
-    public function __construct($patient=null, $doctor=null, $date=null, $description="Ninguna")
+    public function __construct($patient=null, $doctor=null, $date=null, $description="Ninguna", $isClosed=false)
     {
         $this->patient = $patient;
         $this->doctor = $doctor;
         $this->date = $date;
 		$this->description = $description;
+		$this->isClosed = $isClosed;
     }
 
     /**
@@ -50,6 +51,11 @@ class Appointments
      * @ORM\Column(type="string", length=200 )
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isClosed;
 
     public function getId()
     {

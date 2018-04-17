@@ -11,7 +11,7 @@
 		<p>
 
 			Day:
-			<select name="daySelector">
+			<select name="daySelector" title="Days of the week">
 
                 {% if day=='Monday' %}
 					<option value="Monday" selected>Monday</option>
@@ -56,20 +56,21 @@
 					<option value="Friday" >Friday</option>
 					<option value="None" selected>---</option>
                 {% endif %}
-			</select>
+			</select>&nbsp;&nbsp;
 
 			Time range: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                <select name="selector">
+                <select name="selector" title="AM/PM Selector">
 
                     {% if cond=='AM' %}
                     <option value="AM" selected>AM</option>
                     <option value="PM">PM</option>
                     {% else %}
                     <option value="AM" >AM</option>
-                    <option value="PM"selected>PM</option>
+                    <option value="PM" selected>PM</option>
                     {% endif %}
                 </select>
-            <input class='button'type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
+            <input class='button' type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
+			<a href="{{ path('generateAppointment',{'specialty': specialty}) }}"><div>Reset</div></a>
 
 		</p>
 		<div class="dateTimeBlock">
@@ -77,7 +78,7 @@
                 <div>Date: {{ date.format('Y-m-d') }}</div>
                 <div>Hour: {{ date.format('H:i') }}</div>
             </div>
-				<input type="hidden" name="specialty", value='{{ specialty }}'/>
+				<input type="hidden" name ="specialty" value='{{ specialty }}'/>
                 <input class='button2' type='submit' name='enter' value='Next'/>
 				
 
@@ -92,7 +93,7 @@
 			<div class="block-title"> Appointment description(Optional)</div>
 			<div class="center">
 				<p>
-					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none">Add relevant information for your doctor</textarea>
+					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none" title="Information for your doctor">Add relevant information for your doctor</textarea>
 				</p>
 
 			</div>

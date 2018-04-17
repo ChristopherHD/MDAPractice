@@ -13,13 +13,13 @@ addUser:
     path: /addUser
     controller: App\Controller\AppController::addUser
 addDoctor:
-    path: /addDoctor
+    path: /admins/addDoctor
     controller: App\Controller\AppController::addDoctor
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments
 generateAppointment:
-    path: /patient/generateAppointment/
+    path: /appointments/generate
     controller: App\Controller\AppointmentController::generateAppointment
 persistAppointment:
     path: /appointments/add
