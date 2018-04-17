@@ -15,6 +15,7 @@ use App\Repository\AppointmentsRepository;
 use App\Repository\DoctorsRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Log\Logger;
 
 class AppointmentsGenerator
 {
@@ -30,10 +31,18 @@ class AppointmentsGenerator
         $this->ar = $ar;
         $this->dr = $dr;
     }
-    public function generate($previousDate, $option)
+    public function generate($previousDate, $option, $day, $specialty)
     {
-        $day = 'Monday';
-
+        $doctors= $this->dr->findBySpecialty($specialty);
+        $appointmentInfo = $this->searchAppointment($previousDate, $doctors, $option, $day);
+        return $appointmentInfo;
+    }
+    public function searchAppointment($previousDate, $doctors, $option, $day)
+    {
+        $this->logger->info(count($doctors));
+        if(!isset($doctors)&&empty($doctors)){
+            return null;
+        }
         if($option == "AM"){
             $initHour=9;
             $endHour=13;
@@ -45,13 +54,13 @@ class AppointmentsGenerator
         if(isset($previousDate)){
             $date = new \DateTime($previousDate);
 
-        }else if(isset($day)){
+        }else if(isset($day) && $day!='None'){
             $date = new \DateTime($day);
         }else{
             $date = new \DateTime();
         }
         while(true){
-            if(isset($day)&&$date->format('l')!=$day){          //Si Dia de la semana es diferente y la opción está seleccionada
+            if(isset($day)&& $day!='None'&&$date->format('l')!=$day){          //Si Dia de la semana es diferente y la opción está seleccionada
                 $interval = \DateInterval::createFromDateString($day); //Calculamos el intervalo relativalo al siguiente lunes
                 $date->add($interval);                                  //Se aplica el intervalo relativo a la fecha actual
                 $date->setTime($initHour, 0, 0);        //Reiniciamos la hora.
@@ -60,7 +69,7 @@ class AppointmentsGenerator
             if($bounds<0) {                                             //Si estamos por debajo del horario
                 $date->setTime($initHour, 0, 0);        //Reiniciamos la hora
             }else if($bounds>0){                                        //Si estamos por encima
-                if(isset($day)) {                                       //Y la opción de día está activa
+                if(isset($day)&& $day!='None') {                                       //Y la opción de día está activa
                     $date->modify("+7 day");                    //Avanzamos 7 días
                 }else{
                     $date->modify("+1 day");                    //Si no avanzamos 1 día
@@ -69,8 +78,10 @@ class AppointmentsGenerator
             }else{                                                     //Si estamos dentro de las opciones horarias/límites
                 $date->modify("+1 hour");                       //Avanzamos 1 hora
             }
-            if(empty($this->ar->findByDate($date))){                    //Si la fecha no está ocupada
-                return $date;                                           //Salimos y Devolvemos la fecha.
+            foreach($doctors as $doctor){
+                if(empty($this->ar->findByDateAndDoctor($date,$doctor))){                    //Si la fecha no está ocupada
+                    return array($date,$doctor);                                           //Salimos y Devolvemos la fecha.
+                }
             }
         }
         return null;                                                    //Nunca debería ejecutarse
@@ -83,11 +94,11 @@ class AppointmentsGenerator
         return 0;
     }
 
-    public function persist($user,$date,$specialty,$description){
-		
-        $doctors = $this->dr->findBySpecialty($specialty);
-        if($doctors != null){
-			$doctor = $doctors[random_int(0, sizeof($doctors)-1)];
+    public function persist($user,$date,$doctorDNI,$description){
+		$doctor = $this->dr->findByDni($doctorDNI);
+        $this->logger->info('el doctor '.$doctor->getUsername());
+        if($doctor != null){
+
 			
 			$date = new \DateTime($date) ;
 

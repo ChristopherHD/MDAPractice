@@ -18,7 +18,7 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div class="menu-item"><a href="{{ path("appointments") }}">Ver citas</a></div>
 				{%  if is_granted('ROLE_USER') %}
-					<div class="menu-item"><a href="{{ path("generateAppointment") }}">Reservar cita</a></div>
+					<div class="menu-item"><a href="{{ path("selectSpecialty") }}">Reservar cita</a></div>
 				{% endif %}	
 				<div class="menu-item"><a href="{{ path("logout") }}">Log-out</a></div>
             {% else %}

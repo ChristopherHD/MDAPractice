@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Appointments;
+use App\Entity\Doctors;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\OptimisticLockException;
@@ -62,6 +63,19 @@ class AppointmentsRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getArrayResult();
 	}
+    public function findByDateAndDoctor($date,?Doctors $doctor)
+    {
+
+        return $this->createQueryBuilder('a')
+            ->addSelect("a")
+            ->where("a.doctor = :doctor")
+            ->andWhere("a.date = :date")
+            ->setParameter('date', $date)
+            ->setParameter('doctor', $doctor->getDni())
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     public function addAppointment(?Appointments $appointment)
     {
         $em = $this->getEntityManager();

@@ -8,7 +8,57 @@
 
         <div class="center">
         <form action={{ path('generateAppointment') }}>
-		<p>Time Range: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+		<p>
+
+			Day:
+			<select name="daySelector">
+
+                {% if day=='Monday' %}
+					<option value="Monday" selected>Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="None">---</option>
+                {% elseif day=='Tuesday' %}
+					<option value="Monday">Monday</option>
+					<option value="Tuesday" selected>Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="None">---</option>
+                {% elseif day=='Wednesday' %}
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday" selected>Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="None">---</option>
+                {% elseif day=='Thursday' %}
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday" selected>Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="None">---</option>
+                {% elseif day=='Friday' %}
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday" selected>Friday</option>
+					<option value="None">---</option>
+                {% else %}
+					<option value="Monday" >Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday" >Friday</option>
+					<option value="None" selected>---</option>
+                {% endif %}
+			</select>
+
+			Time range: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <select name="selector">
 
                     {% if cond=='AM' %}
@@ -27,7 +77,9 @@
                 <div>Date: {{ date.format('Y-m-d') }}</div>
                 <div>Hour: {{ date.format('H:i') }}</div>
             </div>
-                <input class='button2' type='submit' name='enter' value='Next'>
+				<input type="hidden" name="specialty", value='{{ specialty }}'/>
+                <input class='button2' type='submit' name='enter' value='Next'/>
+				
 
 		 </div>
             </form>
@@ -35,31 +87,21 @@
     </div>
 	
 	<form action='{{ path('persistAppointment') }}'>
-	
+
 		<div class="block">
-			<div class="block-title"> Appointment information </div>
+			<div class="block-title"> Appointment description(Optional)</div>
 			<div class="center">
-				<p>Doctor specialty: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-					<select name="specialty">
-						<option value="Neurology">Neurology</option>
-						<option value="Geriatrics">Geriatrics</option>
-						<option value="Pneumology">Pneumology</option>
-						<option value="Toxicology">Toxicology</option>
-						<option value="Oncology">Oncology</option>
-					</select>
-				</p>
-				
-				Description:
 				<p>
-					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none">Ninguna</textarea>
+					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none">Add relevant information for your doctor</textarea>
 				</p>
-				
+
 			</div>
 		</div>
-		
+
 		<div class=button_block>
 					<b>{{ date.format('Y-m-d H:i') }}</b>
 					<input type='hidden' name='date' value='{{ date.format('Y-m-d H:i:s') }}'>
+					<input type="hidden" name="doctor" value='{{ doctor.getDni() }}'/>
 					<input class='button' type='submit' name='enter' value='Accept'>
 		</div>
 	</form>

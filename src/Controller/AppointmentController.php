@@ -7,15 +7,19 @@ use App\Repository\AppointmentsRepository;
 use App\Repository\DoctorsRepository;
 use App\Services\AppointmentsGenerator;
 use App\Repository\UsersRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
 
 class AppointmentController extends Controller
 {
     private $ar;
-	public function __construct(AppointmentsRepository $ar)
+    private $logger;
+	public function __construct(AppointmentsRepository $ar, LoggerInterface $logger)
     {
         $this->ar= $ar;
+        $this->logger=$logger;
 
     }
 	public function getAppointments()
@@ -33,9 +37,16 @@ class AppointmentController extends Controller
     {
         $previousDate= $request->get('date');
         $options=$request->get('selector');
-        $date=$ag->generate($previousDate, $options);
+        $day=$request->get('daySelector');
+        $specialty=$request->get('specialty');
+        $this->logger->info($specialty);
+        $appointmentInfo=$ag->generate($previousDate, $options, $day,$specialty);
+        $date=$appointmentInfo[0];
+        $doctor=$appointmentInfo[1];
+
         if(isset($date)){
-            return $this->render('addAppointment.html.twig', array('date' => $date,'cond'=>$options));
+            return $this->render('addAppointment.html.twig',
+                array('date' => $date,'cond'=>$options, 'day'=>$day, 'specialty' =>$specialty,'doctor'=>$doctor));
         }else{
             //generate appointment (Especialidad, Rango)
 
@@ -44,16 +55,11 @@ class AppointmentController extends Controller
     }
 	public function persistAppointment(Request $request, AppointmentsGenerator $ag)
 	{
-
 		$user = $this->getUser();
-
 		$date = $request->get('date') ;
-		
-		$specialty = $request->get('specialty');
-		
+        $doctor= $request->get('doctor') ;
 		$description = $request->get('description');
-		
-		$ag->persist($user,$date,$specialty,$description);
+		$ag->persist($user,$date,$doctor,$description);
 		return $this->redirectToRoute('appointments');
 	}
 	
@@ -63,6 +69,9 @@ class AppointmentController extends Controller
 		$this ->ar->remove($appointmentId);
 		return $this->redirectToRoute('appointments');
 	}
-	
+	public function selectSpecialty()
+    {
+        return $this->render('selectSpecialty.html.twig');
+    }
 	
 }
