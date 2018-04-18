@@ -39,9 +39,9 @@ class AppointmentsGenerator
     }
     public function searchAppointment($previousDate, $doctors, $option, $day)
     {
-        $this->logger->info(count($doctors));
-        if(!isset($doctors)&&empty($doctors)){
-            return null;
+
+        if(empty($doctors)){
+            return null;  //Error si no hay ningun doctor en la especialidad
         }
         if($option == "AM"){
             $initHour=9;

@@ -265,20 +265,28 @@ box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
 .dateTime{
     display:flex;
     flex-direction: column;
+    border-radius: 1px;
+    border: skyblue solid;
 }
-.dateTimeBlock{
-    display:flex;
-    justify-content: center;
-    justify-items: center;
-    align-content: center;
-    align-items: center;
+
+.column{
+    display: flex;
+    flex-direction: column;
+    margin-right: 8px;
+    justify-content: space-around;
 }
-.dateTimeBlock input{
-    margin:15px;
+.e * {
+    display: flex;
+    flex: 1;
+    margin-bottom: 2px;
+}
+.genForm{
+    display: flex;
+    flex-direction: row;
 }
 
 .button2 {
-    background-color: deepskyblue; /* Green */
+
     border: none;
     color: white;
     padding: 4px 14px;
@@ -290,11 +298,20 @@ box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     opacity: 0.8;
     transition: 0.3s;
 }
+.blue {
+    background-color: deepskyblue; /* Green */
+}
+
 .button2:hover {
     opacity:1;
     -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+}
+
+.gray {
+    background-color: gray;
+
 }
 .col-form-label{
     font-size: 80%;

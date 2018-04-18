@@ -7,84 +7,81 @@
         <div class="block-title">Filter Options </div>
 
         <div class="center">
-        <form action={{ path('generateAppointment') }}>
-		<p>
+        <form action={{ path('generateAppointment') }}><div class="genForm">
+            <div class="column e">
+                <div>Day:&ensp;
+                <select name="daySelector" title="Days of the week">
 
-			Day:
-			<select name="daySelector" title="Days of the week">
+                    {% if day=='Monday' %}
+                        <option value="Monday" selected>Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="None">---</option>
+                    {% elseif day=='Tuesday' %}
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday" selected>Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="None">---</option>
+                    {% elseif day=='Wednesday' %}
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday" selected>Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="None">---</option>
+                    {% elseif day=='Thursday' %}
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday" selected>Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="None">---</option>
+                    {% elseif day=='Friday' %}
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday" selected>Friday</option>
+                        <option value="None">---</option>
+                    {% else %}
+                        <option value="Monday" >Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday" >Friday</option>
+                        <option value="None" selected>---</option>
+                    {% endif %}
+                </select></div>
 
-                {% if day=='Monday' %}
-					<option value="Monday" selected>Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="None">---</option>
-                {% elseif day=='Tuesday' %}
-					<option value="Monday">Monday</option>
-					<option value="Tuesday" selected>Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="None">---</option>
-                {% elseif day=='Wednesday' %}
-					<option value="Monday">Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday" selected>Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="None">---</option>
-                {% elseif day=='Thursday' %}
-					<option value="Monday">Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday" selected>Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="None">---</option>
-                {% elseif day=='Friday' %}
-					<option value="Monday">Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday" selected>Friday</option>
-					<option value="None">---</option>
-                {% else %}
-					<option value="Monday" >Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday" >Friday</option>
-					<option value="None" selected>---</option>
-                {% endif %}
-			</select>&nbsp;&nbsp;
-
-			Time range: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+			    <div>Time range:&ensp;
                 <select name="selector" title="AM/PM Selector">
 
-                    {% if cond=='AM' %}
+                    {% if cond=='PM' %}
+                    <option value="AM">AM</option>
+                    <option value="PM" selected>PM</option>
+                    {% else %}
                     <option value="AM" selected>AM</option>
                     <option value="PM">PM</option>
-                    {% else %}
-                    <option value="AM" >AM</option>
-                    <option value="PM" selected>PM</option>
                     {% endif %}
-                </select>
-            <input class='button' type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
-			<a href="{{ path('generateAppointment',{'specialty': specialty}) }}"><div>Reset</div></a>
-
-		</p>
-		<div class="dateTimeBlock">
-            <div class="dateTime">
-                <div>Date: {{ date.format('Y-m-d') }}</div>
-                <div>Hour: {{ date.format('H:i') }}</div>
+                </select></div>
+                <input class='button' type="hidden" name="date" value="{{ date.format('Y-m-d H:i:s') }}"/>
+				<div class="dateTime">
+					<div>Date: {{ date.format('Y-m-d') }}</div>
+					<div>Hour: {{ date.format('H:i') }}</div>
+				</div>
             </div>
-				<input type="hidden" name ="specialty" value='{{ specialty }}'/>
-                <input class='button2' type='submit' name='enter' value='Next'/>
-				
+		<div class="column">
+            <input type="hidden" name ="specialty" value='{{ specialty }}'/>
+            <input class='button2 blue' type='submit' name='enter' value='Next'/>
+			<a href="{{ path('generateAppointment',{'specialty': specialty}) }}"><div class="button2 gray">Reset</div></a>
 
-		 </div>
-            </form>
         </div>
+    </div></form>
+    </div>
     </div>
 	
 	<form action='{{ path('persistAppointment') }}'>
@@ -99,7 +96,7 @@
 			</div>
 		</div>
 
-		<div class=button_block>
+		<div class="button_block">
 					<b>{{ date.format('Y-m-d H:i') }}</b>
 					<input type='hidden' name='date' value='{{ date.format('Y-m-d H:i:s') }}'>
 					<input type="hidden" name="doctor" value='{{ doctor.getDni() }}'/>
