@@ -14,12 +14,15 @@
         <div class="page-title">{% block page_title %}Portal{% endblock %}</div>
         <div class="menu">
             {% block menu_items_start %}{% endblock %}
-
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <div class="menu-item"><a href="{{ path("appointments") }}">Ver citas</a></div>
-				{%  if is_granted('ROLE_USER') %}
-					<div class="menu-item"><a href="{{ path("selectSpecialty") }}">Reservar cita</a></div>
-				{% endif %}	
+                {% if is_granted('ROLE_DOCTOR') %}
+                    <div class="menu-item"><a href="{{ path("appointments") }}">Ver citas</a></div>
+                {% elseif is_granted('ROLE_USER') %}
+                    <div class="menu-item"><a href="{{ path("appointments") }}">Ver citas</a></div>
+                    <div class="menu-item"><a href="{{ path("selectSpecialty") }}">Reservar cita</a></div>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                    <div class="menu-item"><a href="{{ path("addDoctor") }}">New Doctor</a></div>
+                {% endif %}
 				<div class="menu-item"><a href="{{ path("logout") }}">Log-out</a></div>
             {% else %}
                 <div class="menu-item"><a href="{{ path("addUser") }}">Sign-up</a></div>

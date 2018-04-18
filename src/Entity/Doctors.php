@@ -126,7 +126,7 @@ class Doctors implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_DOC');
+        return array('ROLE_DOCTOR');
     }
 
     /**
