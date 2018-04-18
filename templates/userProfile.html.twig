@@ -1,0 +1,22 @@
+{% extends "index.html.twig" %}
+{% block title %}User Profile{% endblock %}
+{% block page_title %}Profile{% endblock %}
+{% block content %}
+
+	
+	<div class="block">
+		<div class="block-title"> User Information </div>
+		<div class="center">
+			<div class="column">
+				<div><b>Name: {{ user.getUsername() }}</b></div>
+				<div><b>DNI: {{ user.getDni() }}</b></div>
+				<div><b>BirthDate: {{ user.getBirthdate() }}</b></div>
+			</div>
+			<div class="column">
+				<div><b>Phone: {{ user.getPhone() }}</b></div>
+				<div><b>SSN: {{ user.getSocialSecurityNumber() }}</b></div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

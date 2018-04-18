@@ -18,12 +18,24 @@ addIncident:
 addDoctor:
     path: /admins/addDoctor
     controller: App\Controller\AppController::addDoctor
+addAnimal:
+    path: /patients/addAnimal
+    controller: App\Controller\ProfileController::addAnimal
+userProfile:
+    path: /patients/profile/get
+    controller: App\Controller\ProfileController::getPatient
+doctorProfile:
+    path: /doctors/profile/get
+    controller: App\Controller\ProfileController::getDoctor
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments
 generateAppointment:
     path: /appointments/generate
     controller: App\Controller\AppointmentController::generateAppointment
+generateVetAppointment:
+    path: /appointments/vet/generate
+    controller: App\Controller\AppointmentController::generateVetAppointment
 persistAppointment:
     path: /appointments/add
     controller: App\Controller\AppointmentController::persistAppointment

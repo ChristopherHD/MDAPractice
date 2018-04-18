@@ -53,6 +53,26 @@ class AppointmentController extends Controller
 			return $this->redirectToRoute('index');
         }
     }
+    public function generateVetAppointment(Request $request,  AppointmentsGenerator $ag)
+    {
+        $previousDate= $request->get('date');
+        $options=$request->get('selector');
+        $day=$request->get('daySelector');
+        $specialty=$request->get('specialty');
+        $this->logger->info($specialty);
+        $appointmentInfo=$ag->generate($previousDate, $options, $day,$specialty);
+        $date=$appointmentInfo[0];
+        $doctor=$appointmentInfo[1];
+
+        if(isset($date)){
+            return $this->render('addAppointment.html.twig',
+                array('date' => $date,'cond'=>$options, 'day'=>$day, 'specialty' =>$specialty,'doctor'=>$doctor));
+        }else{
+            //generate appointment (Especialidad, Rango)
+
+            return $this->redirectToRoute('index');
+        }
+    }
 	public function persistAppointment(Request $request, AppointmentsGenerator $ag)
 	{
 		$user = $this->getUser();

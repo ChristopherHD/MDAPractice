@@ -9,28 +9,33 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-    <div class="header">
+    <nav class="header">
         <div class="logo"><a href="{{ path("index") }}"><img src="https://image.flaticon.com/icons/svg/119/119058.svg" class="svg-inject" alt="Logo" /></a><a href="{{ path("index") }}">G-Med</a></div>
         <div class="page-title">{% block page_title %}Portal{% endblock %}</div>
-        <div class="menu">
+        <ul class="menu">
             {% block menu_items_start %}{% endblock %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {% if is_granted('ROLE_DOCTOR') %}
-                    <div class="menu-item"><a href="{{ path("appointments") }}">Ver citas</a></div>
+                    <li><a href="{{ path("appointments") }}">Appointments</a></li>
                 {% elseif is_granted('ROLE_USER') %}
-                    <div class="menu-item"><a href="{{ path("appointments") }}">Ver citas</a></div>
-                    <div class="menu-item"><a href="{{ path("selectSpecialty") }}">Reservar cita</a></div>
+                    <li class="has-children"><a href="#">Appointments</a>
+                        <ul>
+                            <li class=""><a href="{{ path("appointments") }}">My Appointments</a></li>
+                            <li class=""><a href="{{ path("selectSpecialty") }}">New Appointment</a></li>
+                        </ul>
+                    </li>
+
                 {% elseif is_granted('ROLE_ADMIN') %}
-                    <div class="menu-item"><a href="{{ path("addDoctor") }}">New Doctor</a></div>
+                    <li><a href="{{ path("addDoctor") }}">New Doctor</a></li>
                 {% endif %}
-				<div class="menu-item"><a href="{{ path("logout") }}">Log-out</a></div>
+				<li><a href="{{ path("logout") }}">Log-out</a></li>
             {% else %}
-                <div class="menu-item"><a href="{{ path("addUser") }}">Sign-up</a></div>
-                <div class="menu-item"><a href="{{ path("login") }}">Log-in</a></div>
+                <li><a href="{{ path("addUser") }}">Sign-up</a></li>
+                <li><a href="{{ path("login") }}">Log-in</a></li>
             {% endif %}
             {% block menu_items_end %}{% endblock %}
-        </div>
-    </div>
+        </ul>
+    </nav>
         <div class="content">
         {% block content %}
             <div class="block">
