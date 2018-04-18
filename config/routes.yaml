@@ -12,6 +12,9 @@ logout:
 addUser:
     path: /addUser
     controller: App\Controller\AppController::addUser
+addIncident:
+    path: /addIncident
+    controller: App\Controller\AppController::addIncident
 addDoctor:
     path: /admins/addDoctor
     controller: App\Controller\AppController::addDoctor

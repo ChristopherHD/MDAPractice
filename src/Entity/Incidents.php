@@ -12,13 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Incidents
 {
 
-    public function __construct($patient=null, $doctor=null, $date=null, $description="Ninguna", $isClosed=false)
+    public function __construct($date=null, $description=null, $isClosed=false,$email=null,$patient=null, $doctor=null)
     {
         $this->patient = $patient;
         $this->doctor = $doctor;
         $this->date = $date;
 		$this->description = $description;
 		$this->isClosed = $isClosed;
+		$this->email=$email;
     }
 
     /**
@@ -51,6 +52,11 @@ class Incidents
      * @ORM\Column(type="string", length=200 )
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=200 )
+     */
+    private $email;
 
     /**
      * @ORM\Column(type="boolean")

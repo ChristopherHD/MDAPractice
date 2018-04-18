@@ -8,7 +8,7 @@
 			{% set textDoctorName = 'Appointment with doctor: ' ~ appoint.doctor.username %}
             {% set textSpecialty = 'Specialty: ' ~ appoint.doctor.specialty %}
 			
-		{% elseif is_granted('ROLE_DOC') %}
+		{% elseif is_granted('ROLE_DOCTOR') %}
 			{% set text = 'Appointment with patient: ' ~ appoint.patient.username %}
 			
 		{% endif %}

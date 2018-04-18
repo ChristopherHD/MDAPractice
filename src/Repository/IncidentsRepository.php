@@ -5,8 +5,9 @@ namespace App\Repository;
 use App\Entity\Incidents;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-use Doctrine\ORM\NonUniqueResultException;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -20,6 +21,24 @@ class IncidentsRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Incidents::class);
+    }
+
+    public function addIncident($incident)
+    {
+        $em = $this->getEntityManager();
+        try {
+            $em->persist($incident);
+            $em->flush();
+        } catch (OptimisticLockException $e) {
+            return $e;
+
+        } catch( \PDOException $e ) {
+            return $e;
+
+        } catch (ORMException $e) {
+            return $e;
+        }
+        return null;
     }
 
 //    /**

@@ -8,6 +8,7 @@ use App\Form\LoginType;
 use App\Form\UserType;
 use App\Repository\DoctorsRepository;
 use App\Repository\UsersRepository;
+use App\Services\IncidentsService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,39 +81,30 @@ class AppController extends Controller
             }
         }
 
-        return $this->render('adduser.html.twig', array(
+        return $this->render('addDoctor.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
-    public function test()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $user = new Users();
-        $user->setDni('5345fdh');
-        $user->setSocialSecurityNumber('jh34uh65');
-        $user->setPhone('bh346');
-        $user->setBirthdate(new \DateTime('NOW'));
-        $user->setPassword('pepe');
-        $user->setUsername('pepe');
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        $user_s = $this->getDoctrine()
-            ->getRepository(Users::class)
-            ->find($user->getId());
-
-        if (!$user_s) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$user->getId()
-            );
+    public function addIncident(Request $request, IncidentsService $is){
+        $error = null;
+        $email=$request->get('email');
+        $description=$request->get('description');
+        $userType=-1;
+        if($this->isGranted('ROLE_DOCTOR')){
+            $userType=1;
+        }elseif($this->isGranted('ROLE_USER')){
+            $userType=0;
         }
 
-        return $this->render('dbtest.html.twig', array(
-            'name' => $user_s->getUsername(),
+        if(isset($email,$description)){
+            $error = $is->newIncident($email,$userType,$this->getUser(),$description);
+            if($error==null){
+                return $this->redirectToRoute('index');
+            }
+        }
 
-        ));
+        return $this->render('addIncident.html.twig');
+
     }
 }
