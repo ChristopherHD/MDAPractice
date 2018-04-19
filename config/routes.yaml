@@ -5,10 +5,8 @@ index:
 login:
     path: /login
     controller: App\Controller\AppController::login
-
 logout:
      path: /logout
-
 addUser:
     path: /addUser
     controller: App\Controller\AppController::addUser

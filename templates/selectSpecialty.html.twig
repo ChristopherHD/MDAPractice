@@ -6,19 +6,38 @@
     <div class="block">
         <div class="block-title">Select medical specialty for the appointment</div>
         <div class="center">
+            <div class="specialty-table">
+                <div class="row">
+                <div class="column">
+                    <a href={{ path('generateAppointment',{'specialty': 'neurology'}) }}><div class='specialty-link' >Neurology </div></a>
+                </div>
+                <div class="column">
+                    <a href={{ path('generateAppointment',{'specialty': 'dermatology'}) }}><div class='specialty-link' >Dermatology </div></a>
 
-			<a href={{ path('generateAppointment',{'specialty': 'neurology'}) }}><div class='specialty-link' >Neurology </div></a>
-            <a href={{ path('generateAppointment',{'specialty': 'traumatology'}) }}><div class='specialty-link' >Traumatology </div></a>
-            <a href={{ path('generateAppointment',{'specialty': 'dermatology'}) }}><div class='specialty-link' >Dermatology </div></a>
-            <a href={{ path('generateAppointment',{'specialty': 'geriatrics'}) }}><div class='specialty-link' >Geriatrics </div></a>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+
+                        <a href={{ path('generateAppointment',{'specialty': 'traumatology'}) }}><div class='specialty-link' >Traumatology </div></a>
+                    </div>
+                    <div class="column">
+                        <a href={{ path('generateAppointment',{'specialty': 'geriatrics'}) }}><div class='specialty-link' >Geriatrics </div></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="block">
         <div class="block-title">Special Service for animals</div>
         <div class="center">
-
-            <a href={{ path('generateVetAppointment') }}><div class='specialty-link' >Veterinary</div></a>
-
+            <div class="specialty-table">
+                <div class="row">
+                    <div class="column">
+                        <a href={{ path('generateVetAppointment') }}><div class='specialty-link-vet' >Veterinary</div></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

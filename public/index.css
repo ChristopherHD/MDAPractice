@@ -145,6 +145,7 @@ tr td a:hover{
 }
 
 
+
 .orangehover:hover{
     color:yellowgreen;
 }
@@ -228,6 +229,15 @@ html,body{
     display:flex;
     flex-direction: row;
     width: 100%;
+    justify-content: center;
+}
+.specialty-table{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+.specialty-table .row{
     justify-content: center;
 }
 .history-table, .pet-table{
@@ -420,6 +430,47 @@ box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
 .specialty-link{
     display: flex;
     padding: 20px 10px 20px 10px;
-    color: deepskyblue;
+    border:1px solid #2196F3; color:#2196F3;
 
+}
+.specialty-link:hover{
+    box-shadow:inset 20px 0 #2196F3,inset -20px 0 #2196F3,inset 0 20px #2196F3,inset 0 -20px #2196F3;
+    color:#fff;
+}
+.specialty-table .row{
+    margin-top: 10px;
+}
+.specialty-table .row:first-child{
+    margin-top: 0;
+}
+a .specialty-link{
+    background-color: #5eb5e0;
+    justify-content: center;
+    align-items: center;
+    transition:.2s; background:0;
+    height:40px; width:100px;
+    color: #2196F3;
+    border: 1px solid #2196F3;
+}
+.specialty-table a{
+    box-shadow: 0 10px 10px -10px rgba(0,0,0,0.4)
+}
+.specialty-link-vet:hover{
+    box-shadow:inset 20px 0 #4CAF50,inset -20px 0 #4CAF50,inset 0 20px #4CAF50,inset 0 -20px #4CAF50; /*negative is really allowed*/
+    color:#fff;
+}
+a .specialty-link-vet{
+    background-color: #4CAF50;
+    justify-content: center;
+    align-items: center;
+    transition:.2s; background:0;
+    height:40px; width:100px;
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+}
+.specialty-link-vet {
+    display: flex;
+    padding: 20px 10px 20px 10px;
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
 }
