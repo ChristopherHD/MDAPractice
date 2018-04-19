@@ -1,0 +1,27 @@
+{% extends 'index.html.twig' %}
+{% block title %}Update Account{% endblock %}
+{% block page_title %}Update Account{% endblock %}
+{% block content %}
+{# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
+    <div class="block">
+        <div class="block-title">Personal Information </div>
+        <div class="form2">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {#
+            <div class="row"><div></div>
+                <div class="col-sm-2">
+                    <button type="submit" id="login_log in" name="user[create]" class="btn-secondary btn">Create</button>
+                </div>
+
+                <div class="col-sm-8">
+
+                    <button type="reset" id="user_cancel" name="user[cancel]" class="btn-secondary btn">Cancel</button>
+                </div>
+
+            </div>
+            #}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

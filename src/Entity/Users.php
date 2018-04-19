@@ -20,6 +20,8 @@ class Users implements UserInterface
         $this->social_security_number = $social_security_number;
         $this->birthdate = $birthdate;
         $this->phone = $phone;
+        $this->creditCard = null;
+        $this->isSubscribed = false;
 
     }
     /**
@@ -65,6 +67,15 @@ class Users implements UserInterface
      */
     private $medical_history;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isSubscribed;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $creditCard;
 
     public function getUsername(): ?string
     {
@@ -232,6 +243,39 @@ class Users implements UserInterface
     public function setPlainPassword($plainPassword): void
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsSubscribed()
+    {
+        if(!isset($this->isSubscribed)) return false;
+        return $this->isSubscribed;
+    }
+
+    /**
+     * @param mixed $isSubscribed
+     */
+    public function setIsSubscribed($isSubscribed): void
+    {
+        $this->isSubscribed = $isSubscribed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreditCard()
+    {
+        return $this->creditCard;
+    }
+
+    /**
+     * @param mixed $creditCard
+     */
+    public function setCreditCard($creditCard): void
+    {
+        $this->creditCard = $creditCard;
     }
 }
 

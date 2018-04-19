@@ -1,0 +1,31 @@
+{% extends 'index.html.twig' %}
+{% block title %}Subscribe{% endblock %}
+{% block page_title %}Subscribe{% endblock %}
+{% block content %}
+{# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
+    <form action={{ path('subscribe') }}>
+    <div class="block">
+        <div class="block-title">Add credit card for subscription</div>
+        <div class="center">
+            <div class="specialty-table">
+                <div class="row">
+                    <div class="column">
+
+                            Credit Card: <input title="CC" type="number" name="cc" required><br>
+                            Expire Year (Last 2 digits): <input title="CC" type="number" name="a" maxlength= "2" required><br>
+                            Expire Month (Number): <input title="CC" type="number" name="b" maxlength= "2" required><br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button_block">
+        <div><b>Price per year: 100$</b>
+        <input class='button' type='submit' name='enter' value='Accept'>
+        </div>
+    </div>
+    </form>
+{% endblock %}
+
+

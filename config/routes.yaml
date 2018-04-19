@@ -26,8 +26,14 @@ doctorProfile:
     path: /doctors/profile/get
     controller: App\Controller\ProfileController::getDoctor
 account:
-    path: /account
+    path: /account/get
     controller: App\Controller\ProfileController::getAccount
+subscribe:
+    path: /account/subscribe
+    controller: App\Controller\ProfileController::subscribe
+updateUser:
+    path: /account/update
+    controller: App\Controller\ProfileController::update
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments

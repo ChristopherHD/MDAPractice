@@ -5,15 +5,22 @@
 
 	
 	<div class="block">
-		<div class="block-title"> User Information (<a class="orangehover" href="#">edit</a>) </div>
+		<div class="block-title"> User Information (<a class="orangehover" href="{{ path('updateUser') }}">edit</a>) </div>
 		<div class="center">
 			<div class="profile-table">
 				<div class="column">
 					<div><b>Name:&nbsp;&nbsp;</b>{{ user.getUsername() }}</div>
 					<div><b>DNI/NIF:&nbsp;&nbsp;</b>{{ user.getDni() }}</div>
-					<div><b>Birthday:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
+					{% if user.getIsSubscribed() %}
+                        <div><b>Subscribed:&nbsp;&nbsp;</b>Yes</div>
+					    <div><b>Credit card:&nbsp;&nbsp;</b>**** **** **{{ user.getCreditCard()|slice(-2) }}</div>
+					{% else %}
+                        <div><b>Subscription:&nbsp;&nbsp;</b>No</div>
+                        <div>Want to&nbsp;<a class="orangehover" href="{{ path('subscribe') }}">subscribe</a>?</div>
+					{% endif %}
 				</div>
 				<div class="column">
+					<div><b>Birthday:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
 					<div><b>Phone:&nbsp;&nbsp;</b>{{ user.getPhone() }}</div>
 					<div><b>SSN:&nbsp;&nbsp;</b>{{ user.getSocialSecurityNumber() }}</div>
 				</div>

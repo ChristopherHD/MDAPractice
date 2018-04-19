@@ -63,6 +63,19 @@ class UsersRepository extends ServiceEntityRepository
             return null;
         }
     }
+
+    public function update(Users $user)
+    {
+        $em = $this->getEntityManager();
+        try {
+            $em->merge($user);
+            $em->flush();
+        } catch (ORMException $e) {
+            return $e;
+        }
+        return null;
+    }
+
     public function addUser(?Users $user)
     {
         $em = $this->getEntityManager();
