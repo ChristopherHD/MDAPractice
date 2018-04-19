@@ -31,6 +31,9 @@ account:
 subscribe:
     path: /account/subscribe
     controller: App\Controller\ProfileController::subscribe
+unsubscribe:
+    path: /account/unsubscribe
+    controller: App\Controller\ProfileController::unsubscribe
 updateUser:
     path: /account/update
     controller: App\Controller\ProfileController::update

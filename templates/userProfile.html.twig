@@ -23,6 +23,9 @@
 					<div><b>Birthday:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
 					<div><b>Phone:&nbsp;&nbsp;</b>{{ user.getPhone() }}</div>
 					<div><b>SSN:&nbsp;&nbsp;</b>{{ user.getSocialSecurityNumber() }}</div>
+                    {% if user.getIsSubscribed() %}
+                        <div>Want to&nbsp;<a class="orangehover" href="{{ path('unsubscribe') }}">unsubscribe</a>?</div>
+                    {% endif %}
 				</div>
 
 			</div>

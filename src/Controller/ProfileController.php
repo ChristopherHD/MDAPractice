@@ -65,6 +65,15 @@ class ProfileController extends Controller
         }
         return $this->render('subscribe.html.twig');
     }
+
+    public function unsubscribe(UsersRepository $ur)
+    {
+        $user = $this->getUser();
+        $user->setCreditCard(null);
+        $user->setIsSubscribed(false);
+        $ur->update($user);
+        return $this->redirectToRoute('account');
+    }
     public function getDoctor(Request $request, DoctorsRepository $dr)
     {
         $userID=$request->get('id');
