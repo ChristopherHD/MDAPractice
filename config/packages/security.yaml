@@ -59,4 +59,5 @@ security:
          #- { path: ^/test/db, roles: ROLE_USER }
          - { path: ^/appointments/get, roles: [ROLE_USER, ROLE_DOCTOR] }
          - { path: ^/appointments/, roles: ROLE_USER }
+         - { path: ^/account, roles: [ROLE_USER, ROLE_DOCTOR] }
          - { path: ^/admins/, roles: ROLE_ADMIN }

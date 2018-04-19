@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Animals;
 use App\Form\AnimalType;
-use App\Form\DoctorType;
 
 use App\Repository\AnimalsRepository;
 
@@ -64,15 +63,17 @@ class ProfileController extends Controller
             'doctor' => $user,
         ));
     }
-    public function myProfile(){
+    public function getAccount(AnimalsRepository $anr){
         $user = $this->getUser();
         if($this->isGranted('ROLE_DOCTOR')){
-            return $this->render('myDoctorProfile.html.twig', array(
+            return $this->render('doctorProfile.html.twig', array(
                 'doctor' => $user,
             ));
         }elseif($this->isGranted('ROLE_USER')){
-            return $this->render('myUserProfile.html.twig', array(
+            $animals = $anr->findByOwner($user);
+            return $this->render('userProfile.html.twig', array(
                 'user' => $user,
+                'pets' => $animals,
             ));
         }
         return $this->redirectToRoute('index');

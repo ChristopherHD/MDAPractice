@@ -29,7 +29,7 @@ class Animals
     private $id;
 
     /**
-     * @var integer $patient
+     * @var Users $patient
 	 * @ORM\ManyToOne(targetEntity="Users")
 	 * @ORM\JoinColumn(name="patient", referencedColumnName="dni")
      */
@@ -46,7 +46,7 @@ class Animals
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=200 )
+     * @ORM\Column(type="string", length=200, nullable=true )
      */
     private $other;
 
@@ -61,18 +61,14 @@ class Animals
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
-    public function getOwner(): int
+
+    public function getOwner(): ?Users
     {
         return $this->owner;
     }
 
-    /**
-     * @param int $owner
-     */
-    public function setOwner(int $owner): void
+
+    public function setOwner(Users $owner)
     {
         $this->owner = $owner;
     }

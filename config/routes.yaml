@@ -27,6 +27,9 @@ userProfile:
 doctorProfile:
     path: /doctors/profile/get
     controller: App\Controller\ProfileController::getDoctor
+account:
+    path: /account
+    controller: App\Controller\ProfileController::getAccount
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments

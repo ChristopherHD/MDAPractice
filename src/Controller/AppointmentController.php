@@ -2,11 +2,9 @@
 namespace App\Controller;
 
 
-use App\Entity\Appointments;
+
 use App\Repository\AppointmentsRepository;
-use App\Repository\DoctorsRepository;
 use App\Services\AppointmentsGenerator;
-use App\Repository\UsersRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,15 +56,14 @@ class AppointmentController extends Controller
         $previousDate= $request->get('date');
         $options=$request->get('selector');
         $day=$request->get('daySelector');
-        $specialty=$request->get('specialty');
-        $this->logger->info($specialty);
-        $appointmentInfo=$ag->generate($previousDate, $options, $day,$specialty);
+
+        $appointmentInfo=$ag->generate($previousDate, $options, $day,'veterinary');
         $date=$appointmentInfo[0];
         $doctor=$appointmentInfo[1];
 
         if(isset($date)){
-            return $this->render('addAppointment.html.twig',
-                array('date' => $date,'cond'=>$options, 'day'=>$day, 'specialty' =>$specialty,'doctor'=>$doctor));
+            return $this->render('addVetAppointment.html.twig',
+                array('date' => $date,'cond'=>$options, 'day'=>$day, 'doctor'=>$doctor));
         }else{
             //generate appointment (Especialidad, Rango)
 

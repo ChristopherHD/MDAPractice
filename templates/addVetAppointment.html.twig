@@ -1,13 +1,13 @@
 {% extends 'index.html.twig' %}
-{% block title %}Appointments{% endblock %}
-{% block page_title %}New Appointment{% endblock %}
+{% block title %}Vet Appointments{% endblock %}
+{% block page_title %}New Vet Appointment{% endblock %}
 {% block content %}
 {# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
     <div class="block">
         <div class="block-title">Filter Options </div>
 
         <div class="center">
-        <form action={{ path('generateAppointment') }}><div class="genForm">
+        <form action={{ path('generateVetAppointment') }}><div class="genForm">
             <div class="column e">
                 <div>Day:&ensp;
                 <select name="daySelector" title="Days of the week">
@@ -75,9 +75,8 @@
 				</div>
             </div>
 		<div class="column align-center">
-            <input type="hidden" name ="specialty" value='{{ specialty }}'/>
             <input class='button2 blue' type='submit' name='enter' value='Next'/>
-			<a href="{{ path('generateAppointment',{'specialty': specialty}) }}"><div class="button2 gray">Reset</div></a>
+			<a href="{{ path('generateVetAppointment') }}"><div class="button2 gray">Reset</div></a>
 
         </div>
     </div></form>

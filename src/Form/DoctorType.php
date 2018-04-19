@@ -10,7 +10,7 @@ namespace App\Form;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -25,7 +25,14 @@ class DoctorType extends AbstractType
         $builder
             ->add('username',TextType::class)
             ->add('dni', TextType::class)
-            ->add('specialty', TextType::class)
+            ->add('specialty', ChoiceType::class, array(
+                'choices'  => array(
+                    'Neurology' => "neurology",
+                    'Traumatology' => "traumatology",
+                    'Dermatology' => "dermatology",
+                    'Geriatrics' => "geriatrics",
+                    'Veterinary' => "veterinary",
+                ),))
             ->add('plainPassword', PasswordType::class,array('label'=>'Password',))
             ->add('phone', NumberType::class)
             ->add('create', SubmitType::class, array("attr" => array("class" => "button")));

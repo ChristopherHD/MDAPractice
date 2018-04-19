@@ -17,14 +17,15 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {% if is_granted('ROLE_DOCTOR') %}
                     <li><a href="{{ path("appointments") }}">Appointments</a></li>
+                    <li><a href="{{ path("account") }}">&nbsp;Account</a></li>
                 {% elseif is_granted('ROLE_USER') %}
-                    <li class="has-children"><a href="#">Appointments</a>
+                    <li class="has-children"><a href="#">&nbsp;Appointments</a>
                         <ul>
                             <li class=""><a href="{{ path("appointments") }}">My Appointments</a></li>
                             <li class=""><a href="{{ path("selectSpecialty") }}">New Appointment</a></li>
                         </ul>
                     </li>
-
+                    <li><a href="{{ path("account") }}">Account</a></li>
                 {% elseif is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path("addDoctor") }}">New Doctor</a></li>
                 {% endif %}

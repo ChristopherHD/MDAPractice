@@ -40,5 +40,14 @@ class AnimalsRepository extends ServiceEntityRepository
         return null;
     }
 
+    public function findByOwner($user): ?array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.owner = :val')
+            ->setParameter('val', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }
