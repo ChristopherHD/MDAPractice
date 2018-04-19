@@ -31,7 +31,7 @@ class AppointmentsRepository extends ServiceEntityRepository
 				->where("a.patient = :id")
 				->setParameter('id', $id)
                 ->getQuery()
-                ->getArrayResult();
+                ->getResult();
     }
 		
 	public function findByDoctorId($id): array
@@ -42,7 +42,7 @@ class AppointmentsRepository extends ServiceEntityRepository
 				->where("a.doctor = :id")
 				->setParameter('id', $id)
                 ->getQuery()
-                ->getArrayResult();
+                ->getResult();
     }
 	public function remove($id)
 	{

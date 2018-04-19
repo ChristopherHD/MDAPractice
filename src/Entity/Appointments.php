@@ -12,12 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Appointments
 {
 
-    public function __construct($patient=null, $doctor=null, $date=null, $description="Ninguna")
+    public function __construct($patient=null, $doctor=null, $date=null, $description="Ninguna", $animal=null)
     {
         $this->patient = $patient;
         $this->doctor = $doctor;
         $this->date = $date;
 		$this->description = $description;
+		$this->animal = $animal;
     }
 
     /**
@@ -28,18 +29,25 @@ class Appointments
     private $id;
 
     /**
-     * @var integer $patient
+     * @var Users $patient
 	 * @ORM\ManyToOne(targetEntity="Users")
 	 * @ORM\JoinColumn(name="patient", referencedColumnName="dni")
      */
     private $patient;
 
     /**
-     * @var integer $doctor
+     * @var Doctors $doctor
 	 * @ORM\ManyToOne(targetEntity="Doctors")
 	 * @ORM\JoinColumn(name="doctor", referencedColumnName="dni")
      */
     private $doctor;
+
+    /**
+     * @var Animals $animal
+     * @ORM\ManyToOne(targetEntity="App\Entity\Animals")
+     * @ORM\JoinColumn(name="animal", referencedColumnName="id")
+     */
+    private $animal;
 
     /**
      * @ORM\Column(type="datetime")
@@ -56,24 +64,24 @@ class Appointments
         return $this->id;
     }
 
-    public function getPatient(): ?int
+    public function getPatient(): ?Users
     {
         return $this->patient;
     }
 
-    public function setPatient(int $patient): self
+    public function setPatient(Users $patient): self
     {
         $this->patient = $patient;
 
         return $this;
     }
 
-    public function getDoctor(): ?int
+    public function getDoctor(): ?Doctors
     {
         return $this->doctor;
     }
 
-    public function setDoctor(int $doctor): self
+    public function setDoctor(Doctors $doctor): self
     {
         $this->doctor = $doctor;
 
@@ -92,9 +100,9 @@ class Appointments
         return $this;
     }
 	
-	public function getDescription(): ?string
+	public function getDescription(): string
     {
-        return $this->doctor;
+        return $this->description;
     }
 
     public function setDescription(string $description): self
@@ -102,5 +110,21 @@ class Appointments
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * @return Animals
+     */
+    public function getAnimal(): ?Animals
+    {
+        return $this->animal;
+    }
+
+    /**
+     * @param Animals $animal
+     */
+    public function setAnimal(Animals $animal): void
+    {
+        $this->animal = $animal;
     }
 }

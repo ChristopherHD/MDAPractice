@@ -3,6 +3,7 @@
 {% block page_title %}New Vet Appointment{% endblock %}
 {% block content %}
 {# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
+    {% if pets is defined and pets is not empty %}
     <div class="block">
         <div class="block-title">Filter Options </div>
 
@@ -86,11 +87,20 @@
 	<form action='{{ path('persistAppointment') }}'>
 
 		<div class="block">
-			<div class="block-title"> Appointment description(Optional)</div>
+			<div class="block-title"> Appointment description</div>
 			<div class="center">
+                <div>Select pet:
+                    <select name="petSelector" title="Your Pets">
+                        {% for pet in pets %}
+                        <option value="{{ pet.getId() }}">{{ pet.getName() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
 				<p>
-					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none" title="Information for your doctor">Add relevant information for your doctor</textarea>
-				</p>
+                <p>Description (Optional)</p>
+					<textarea name="description" rows="4" cols="60" maxlength="200" style="resize: none" title="Information for your doctor"></textarea>
+                </p>
 
 			</div>
 		</div>
@@ -102,6 +112,14 @@
 					<input class='button' type='submit' name='enter' value='Accept'>
 		</div>
 	</form>
+    {% else %}
+    <div class="block">
+        <div class="block-title"> Warning! </div>
+        <div class="center">
+            <p><b>No Pets in the System.</b> Please add one first <a class="orangehover" href="{{ path('addAnimal') }}">here</a></p>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
 
 

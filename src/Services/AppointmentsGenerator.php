@@ -94,7 +94,7 @@ class AppointmentsGenerator
         return 0;
     }
 
-    public function persist($user,$date,$doctorDNI,$description){
+    public function persist($user,$date,$doctorDNI,$description, $pet){
 		$doctor = $this->dr->findByDni($doctorDNI);
         $this->logger->info('el doctor '.$doctor->getUsername());
         if($doctor != null){
@@ -102,7 +102,7 @@ class AppointmentsGenerator
 			
 			$date = new \DateTime($date) ;
 
-			$appointment=new Appointments($user,$doctor,$date,$description);
+			$appointment=new Appointments($user,$doctor,$date,$description,$pet);
 			$this->ar->addAppointment($appointment);
 		}
     }

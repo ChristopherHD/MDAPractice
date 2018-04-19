@@ -144,8 +144,9 @@ tr td a:hover{
     color:red;
 }
 
-.redhover{
-    color: blue;
+
+.orangehover:hover{
+    color:yellowgreen;
 }
 
 .logo img{
