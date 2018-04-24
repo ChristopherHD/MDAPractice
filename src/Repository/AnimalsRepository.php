@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Animals;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -47,6 +48,20 @@ class AnimalsRepository extends ServiceEntityRepository
             ->setParameter('val', $user)
             ->getQuery()
             ->getResult();
+    }
+
+    public function remove($id)
+    {
+        try{
+            $this->createQueryBuilder('a')
+                ->delete()
+                ->where("a.id = :id")
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->execute();
+        }catch (ForeignKeyConstraintViolationException  $exception){
+            return 'Animal has appointments arranged';
+        }
     }
 
 

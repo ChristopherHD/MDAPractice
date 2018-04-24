@@ -29,7 +29,7 @@ class ProfileController extends Controller
             $error = $anr->addAnimal($animal);
 
             if($error==null){
-                return $this->redirectToRoute('userProfile');
+                return $this->redirectToRoute('account');
             }else{
                 $form->addError(new FormError('Exception: '.$error));
             }
@@ -38,6 +38,11 @@ class ProfileController extends Controller
         return $this->render('addAnimal.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+    public function removeAnimal(Request $request, AnimalsRepository $anr){
+        $idAnimal= $request->get('id');
+        $errorAnimal=$anr->remove($idAnimal);
+            return $this->redirectToRoute('account',array('error'=>$errorAnimal));
     }
 
     public function getPatient(Request $request, UsersRepository $ur)
@@ -86,8 +91,9 @@ class ProfileController extends Controller
             'doctor' => $user,
         ));
     }
-    public function getAccount(AnimalsRepository $anr){
+    public function getAccount(AnimalsRepository $anr, Request $request){
         $user = $this->getUser();
+        $error= $request->get('error');
         if($this->isGranted('ROLE_DOCTOR')){
             return $this->render('doctorProfile.html.twig', array(
                 'doctor' => $user,
@@ -97,6 +103,7 @@ class ProfileController extends Controller
             return $this->render('userProfile.html.twig', array(
                 'user' => $user,
                 'pets' => $animals,
+                'error' => $error,
             ));
         }
         return $this->redirectToRoute('index');

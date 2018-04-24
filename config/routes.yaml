@@ -19,6 +19,9 @@ addDoctor:
 addAnimal:
     path: /patients/addAnimal
     controller: App\Controller\ProfileController::addAnimal
+removeAnimal:
+    path: /patients/removeAnimal
+    controller: App\Controller\ProfileController::removeAnimal
 userProfile:
     path: /patients/profile/get
     controller: App\Controller\ProfileController::getPatient

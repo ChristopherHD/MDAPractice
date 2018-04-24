@@ -3,7 +3,12 @@
 {% block page_title %}Profile{% endblock %}
 {% block content %}
 
-	
+	{% if error is not null %}
+		<div class="error-block">
+			{{ error }}
+		</div>
+	{% endif %}
+
 	<div class="block">
 		<div class="block-title"> User Information (<a class="orangehover" href="{{ path('updateUser') }}">edit</a>) </div>
 		<div class="center">
@@ -71,7 +76,7 @@
 					</div>
 					<div class="column">
 						<div><b>Type:&nbsp;&nbsp;</b>{{ pet.getType() }}</div>
-						<a class="redhover" href="#">Remove</a>
+						<a class="redhover" href='{{ path('removeAnimal',{'id':pet.getId()}) }}'>Remove</a>
 					</div>
 				</div>
 				{% endfor %}

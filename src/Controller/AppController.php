@@ -23,6 +23,9 @@ class AppController extends Controller
     }
 
     public function login(AuthenticationUtils $authenticationUtils){
+        if($this->isGranted('IS_AUTHENTICATED_FULLY') ){
+            return $this->redirectToRoute('index');
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
