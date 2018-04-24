@@ -25,7 +25,7 @@ class AppointmentController extends Controller
 	{
 		if($this->isGranted('ROLE_USER')){
             $appointments = $this->ar->findByPatientId($this->getUser()->getId());
-        }else if ($this->isGranted('ROLE_DOC')){
+        }else if ($this->isGranted('ROLE_DOCTOR')){
 			$appointments = $this->ar->findByDoctorId($this->getUser()->getId());
 		}
         return $this->render('getAppointments.html.twig', array(

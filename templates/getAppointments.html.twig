@@ -17,7 +17,7 @@
                                 <div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.patient.username }}</a></div>
                             {% endif %}
                             {% if appoint.getAnimal().name is defined %}
-                                <div><b>Animal:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.getAnimal().name }}</a></div>
+                                <div><b>Animal:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path("getAnimal",{'id':appoint.getAnimal().getId()}) }}">{{ appoint.getAnimal().name }}</a></div>
                             {% endif %}
                         </div>
                         <div class="column">

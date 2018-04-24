@@ -1,0 +1,27 @@
+{% extends "index.html.twig" %}
+{% block title %}Pet Profile{% endblock %}
+{% block page_title %}Pet{% endblock %}
+{% block content %}
+
+    {% if pet is defined %}
+	<div class="block">
+		<div class="block-title">Pet Information</div>
+		<div class="center">
+			<div class="pet-table">
+				<div class="row">
+					<div class="column">
+						<div><b>Name:&nbsp;&nbsp;</b>{{ pet.getName() }}</div>
+						<div><b>Birthday:&nbsp;&nbsp;</b>{{ pet.getBirthdate().format('Y-m-d') }}</div>
+					</div>
+					<div class="column">
+						<div><b>Type:&nbsp;&nbsp;</b>{{ pet.getType() }}</div>
+						<div><b>Owner:&nbsp;&nbsp;</b><a class="orangehover" href='#'>{{ pet.getOwner().getUsername() }}</a></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endif %}
+	
+{% endblock %}

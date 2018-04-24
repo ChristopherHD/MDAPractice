@@ -44,7 +44,18 @@ class ProfileController extends Controller
         $errorAnimal=$anr->remove($idAnimal);
             return $this->redirectToRoute('account',array('error'=>$errorAnimal));
     }
+    public function getAnimal(Request $request,AnimalsRepository $anr){
+        $idAnimal= $request->get('id');
 
+        if(isset($idAnimal)){
+            $pet = $anr->findById($idAnimal);
+        }else{
+            return $this->redirectToRoute('getAnimal');
+        }
+        return $this->render('petProfile.html.twig', array(
+            'pet' => $pet[0],
+        ));
+    }
     public function getPatient(Request $request, UsersRepository $ur)
     {
         $userID=$request->get('id');

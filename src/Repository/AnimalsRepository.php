@@ -64,5 +64,12 @@ class AnimalsRepository extends ServiceEntityRepository
         }
     }
 
-
+    public function findById($idAnimal)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.id = :val')
+            ->setParameter('val', $idAnimal)
+            ->getQuery()
+            ->getResult();
+    }
 }
