@@ -1,0 +1,30 @@
+{% extends "/index.html.twig" %}
+{% block title %}Account{% endblock %}
+{% block page_title %}My Account{% endblock %}
+{% block content %}
+
+	{% if error is not null %}
+		<div class="error-block">
+			{{ error }}
+		</div>
+	{% endif %}
+
+	<div class="block">
+		<div class="block-title"> Account Information (<a class="orangehover" href="{{ path('updateUser') }}">edit</a>) </div>
+		<div class="center">
+			<div class="profile-table">
+				<div class="column">
+					<div><b>Name:&nbsp;&nbsp;</b>{{ doctor.getUsername() }}</div>
+					<div><b>DNI/NIF:&nbsp;&nbsp;</b>{{ doctor.getDni() }}</div>
+				</div>
+				<div class="column">
+					<div><b>Specialty:&nbsp;&nbsp;</b>{{ doctor.getSpecialty() }}</div>
+					<div><b>Phone:&nbsp;&nbsp;</b>{{ doctor.getPhone() }}</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	
+{% endblock %}

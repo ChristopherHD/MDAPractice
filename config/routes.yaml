@@ -18,10 +18,10 @@ addDoctor:
     controller: App\Controller\AppController::addDoctor
 addAnimal:
     path: /patients/addAnimal
-    controller: App\Controller\ProfileController::addAnimal
+    controller: App\Controller\AccountController::addAnimal
 removeAnimal:
     path: /patients/removeAnimal
-    controller: App\Controller\ProfileController::removeAnimal
+    controller: App\Controller\AccountController::removeAnimal
 getAnimal:
     path: /patients/getAnimal
     controller: App\Controller\ProfileController::getAnimal
@@ -33,16 +33,16 @@ doctorProfile:
     controller: App\Controller\ProfileController::getDoctor
 account:
     path: /account/get
-    controller: App\Controller\ProfileController::getAccount
+    controller: App\Controller\AccountController::getAccount
 subscribe:
     path: /account/subscribe
-    controller: App\Controller\ProfileController::subscribe
+    controller: App\Controller\AccountController::subscribe
 unsubscribe:
     path: /account/unsubscribe
-    controller: App\Controller\ProfileController::unsubscribe
+    controller: App\Controller\AccountController::unsubscribe
 updateUser:
     path: /account/update
-    controller: App\Controller\ProfileController::update
+    controller: App\Controller\AccountController::update
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments

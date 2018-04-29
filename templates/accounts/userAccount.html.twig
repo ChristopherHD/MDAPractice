@@ -1,6 +1,6 @@
-{% extends "index.html.twig" %}
-{% block title %}User Profile{% endblock %}
-{% block page_title %}Profile{% endblock %}
+{% extends '/index.html.twig' %}
+{% block title %}Account{% endblock %}
+{% block page_title %}My Account{% endblock %}
 {% block content %}
 
 	{% if error is not null %}
@@ -10,7 +10,7 @@
 	{% endif %}
 
 	<div class="block">
-		<div class="block-title"> User Information (<a class="orangehover" href="{{ path('updateUser') }}">edit</a>) </div>
+		<div class="block-title">Personal Information (<a class="orangehover" href="{{ path('updateUser') }}">edit</a>) </div>
 		<div class="center">
 			<div class="profile-table">
 				<div class="column">

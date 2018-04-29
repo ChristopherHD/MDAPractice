@@ -1,0 +1,82 @@
+{% extends '/index.html.twig' %}
+{% block title %}User Profile{% endblock %}
+{% block page_title %}Profile{% endblock %}
+{% block content %}
+
+	{% if error is not null %}
+		<div class="error-block">
+			{{ error }}
+		</div>
+	{% endif %}
+
+	<div class="block">
+		<div class="block-title"> User Information</div>
+		<div class="center">
+			<div class="profile-table">
+				<div class="column">
+					<div><b>Name:&nbsp;&nbsp;</b>{{ user.getUsername() }}</div>
+					<div><b>DNI/NIF:&nbsp;&nbsp;</b>{{ user.getDni() }}</div>
+					{% if user.getIsSubscribed() %}
+                        <div><b>Subscribed:&nbsp;&nbsp;</b>Yes</div>
+					{% else %}
+						<div><b>Subscribed:&nbsp;&nbsp;</b>NO</div>
+					{% endif %}
+				</div>
+				<div class="column">
+					<div><b>Birthday:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
+					<div><b>Phone:&nbsp;&nbsp;</b>{{ user.getPhone() }}</div>
+					<div><b>SSN:&nbsp;&nbsp;</b>{{ user.getSocialSecurityNumber() }}</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="block">
+		<div class="block-title"> Medical History </div>
+		<div class="center">
+				<div class="history-table">
+					<div class="row">
+						<div class="column">
+							<div><b>Date:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
+
+						</div>
+						<div class="column">
+							<div><b>Description:&nbsp;&nbsp;</b> BLa Bla bla blabala. Porque blababa hizo balabalaba.</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="column">
+							<div><b>Date:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
+
+						</div>
+						<div class="column">
+							<div><b>Description:&nbsp;&nbsp;</b> BLa Bla bla blabala. Porque blababa hizo balabalaba.</div>
+						</div>
+					</div>
+			</div>
+
+		</div>
+	</div>
+    {% if app.user.specialty == 'veterinary' and pets is defined and pets is not empty %}
+	<div class="block">
+		<div class="block-title">Pets </div>
+		<div class="center">
+			<div class="pet-table">
+				{% for pet in pets %}
+				<div class="row">
+					<div class="column">
+						<div><b>Name:&nbsp;&nbsp;</b>{{ pet.getName() }}</div>
+						<div><b>Birthday:&nbsp;&nbsp;</b>{{ pet.getBirthdate().format('Y-m-d') }}</div>
+						<div><b>Type:&nbsp;&nbsp;</b>{{ pet.getType() }}</div>
+					</div>
+				</div>
+				{% endfor %}
+
+			</div>
+
+		</div>
+	</div>
+
+	
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends '/index.html.twig' %}
+{% block title %}Search{% endblock %}
+{% block page_title %}Seach doctor{% endblock %}
+{% block content %}
+
+	{% if error is not null %}
+		<div class="error-block">
+			{{ error }}
+		</div>
+	{% endif %}
+
+	<div class="block">
+		<div class="block-title"> Search Options</div>
+		<div class="center">
+
+
+		</div>
+	</div>
+	<div class="block">
+		<div class="block-title"> Search Results</div>
+		<div class="center">
+
+
+		</div>
+	</div>
+
+	
+{% endblock %}

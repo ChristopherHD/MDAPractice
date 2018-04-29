@@ -28,7 +28,7 @@ class AppointmentController extends Controller
         }else if ($this->isGranted('ROLE_DOCTOR')){
 			$appointments = $this->ar->findByDoctorId($this->getUser()->getId());
 		}
-        return $this->render('getAppointments.html.twig', array(
+        return $this->render('appointments/getAppointments.html.twig', array(
             'appointments' => $appointments));
 	}
 
@@ -44,7 +44,7 @@ class AppointmentController extends Controller
         $doctor=$appointmentInfo[1];
 
         if(isset($date)){
-            return $this->render('addAppointment.html.twig',
+            return $this->render('appointments/addAppointment.html.twig',
                 array('date' => $date,'cond'=>$options, 'day'=>$day, 'specialty' =>$specialty,'doctor'=>$doctor));
         }else{
             //generate appointment (Especialidad, Rango)
@@ -64,7 +64,7 @@ class AppointmentController extends Controller
 
         if(isset($date)){
             $pets = $anr->findByOwner($this->getUser());
-            return $this->render('addVetAppointment.html.twig',
+            return $this->render('appointments/addVetAppointment.html.twig',
                 array('date' => $date,'cond'=>$options, 'pets'=>$pets, 'day'=>$day, 'doctor'=>$doctor));
         }else{
             //generate appointment (Especialidad, Rango)
@@ -94,7 +94,7 @@ class AppointmentController extends Controller
 	}
 	public function selectSpecialty()
     {
-        return $this->render('selectSpecialty.html.twig');
+        return $this->render('appointments/selectSpecialty.html.twig');
     }
 	
 }
