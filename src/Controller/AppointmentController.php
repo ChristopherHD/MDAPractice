@@ -34,10 +34,19 @@ class AppointmentController extends Controller
 
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
     {
+
         $previousDate= $request->get('date');
         $options=$request->get('selector');
         $day=$request->get('daySelector');
         $specialty=$request->get('specialty');
+        $doctor=$request->get('doctor');
+        if(isset($doctor)){
+            $appointmentInfo=$ag->generateByDoctor($previousDate, $options, $day,$doctor);
+            $date=$appointmentInfo[0];
+            $doctor=$appointmentInfo[1];
+            return $this->render('appointments/addAppointmentwithDoctor.html.twig',
+                array('date' => $date,'cond'=>$options, 'day'=>$day, 'doctor'=>$doctor));
+        }
         $this->logger->info($specialty);
         $appointmentInfo=$ag->generate($previousDate, $options, $day,$specialty);
         $date=$appointmentInfo[0];

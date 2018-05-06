@@ -45,6 +45,7 @@ class ProfileController extends Controller
 
     public function getDoctor(Request $request, DoctorsRepository $dr)
     {
+        $error = null;
         $userID=$request->get('id');
         if(isset($userID)){
             $user = $dr->findByDni($userID);
@@ -53,6 +54,7 @@ class ProfileController extends Controller
         }
         return $this->render('profiles/doctorProfile.html.twig', array(
             'doctor' => $user,
+            'error'=> $error,
         ));
     }
 

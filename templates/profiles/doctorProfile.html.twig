@@ -28,9 +28,16 @@
 	</div>
 
 		<div class="block-option">
-			<p>Next Appointments <a href="#">17-23-1992</a> | <a href="#">17-23-1992</a>
-			<a class='button' href="{{ path('addAnimal') }}">Add Appointment</a>
-			</p>
+			<div class="row-option">
+				<div class="column">Next Appointments <div class="row"><a href="#">17-23-1992</a> | <a href="#">17-23-1992</a></div>
+
+
+				</div>
+
+				<div class="column align-center">
+					<a class='button' href="{{ path('generateAppointment',{'doctor': doctor.getDni()}) }}">Add Appointment</a>
+				</div>
+			</div>
 		</div>
 	
 {% endblock %}

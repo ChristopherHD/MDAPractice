@@ -106,4 +106,11 @@ class AppointmentsGenerator
 			$this->ar->addAppointment($appointment);
 		}
     }
+
+    public function generateByDoctor($previousDate, $option, $day, $doctor)
+    {
+        $doctors= array($this->dr->findByDni($doctor));
+        $appointmentInfo = $this->searchAppointment($previousDate, $doctors, $option, $day);
+        return $appointmentInfo;
+    }
 }

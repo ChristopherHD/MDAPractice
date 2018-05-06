@@ -78,17 +78,17 @@
     {% if doctors is not empty %}
 	<div class="block">
 		<div class="block-title">Search Results</div>
-		<div class="center test">
+		<div class="center b">
             {% for doctor in doctors %}
-                <a class="row-link" href="#">
+                <a class="row-link color{{ loop.index % 2 }}" href="{{ path('doctorProfile',{'id': doctor.getDni()}) }}">
                     <div class=" column-fixed">
-                        <div><b>Name:&nbsp;&nbsp;</b>{{ doctor.getUsername() }}</div>
+                        <div class="ee"><b>Name:&nbsp;&nbsp;</b>{{ doctor.getUsername() }}</div>
                     </div>
                     <div class=" column-fixed">
-                        <div ><b>Specialty:&nbsp;&nbsp;</b>{{ doctor.getSpecialty() }}</div>
+                        <div class="ee"><b>Specialty:&nbsp;&nbsp;</b>{{ doctor.getSpecialty() }}</div>
                     </div>
                     <div class=" column-fixed">
-                        <div ><b class="no-wrap2">Phone number:&nbsp;&nbsp;</b>{{ doctor.getPhone() }}</div>
+                        <div class="ee"><b class="no-wrap2">Phone number:&nbsp;&nbsp;</b>{{ doctor.getPhone() }}</div>
                     </div>
                 </a>
             {% endfor %}
