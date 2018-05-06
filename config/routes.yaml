@@ -28,6 +28,9 @@ getAnimal:
 userProfile:
     path: /patients/profile/get
     controller: App\Controller\ProfileController::getPatient
+searchDoctor:
+    path: /patients/searchDoctor
+    controller: App\Controller\SearchController::searchDoctor
 doctorProfile:
     path: /doctors/profile/get
     controller: App\Controller\ProfileController::getDoctor

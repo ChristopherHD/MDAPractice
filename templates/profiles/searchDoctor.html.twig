@@ -12,17 +12,89 @@
 	<div class="block">
 		<div class="block-title"> Search Options</div>
 		<div class="center">
-
+			<form action="{{ path('searchDoctor') }}">
+                <div class="genForm">
+                    <div class="column e">
+                        <div>
+                            <div class="no-wrap">Search field:&nbsp;&nbsp;</div><input type="text" name="searchField">
+                        </div>
+                        <div>
+                            Specialty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <select name="specialty">
+                                {% if specialty=='neurology' %}
+                                    <option value="neurology" selected>Neurology</option>
+                                    <option value="traumatology">Traumatology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="geriatrics">Geriatrics</option>
+                                    <option value="veterinary">Veterinary</option>
+                                    <option value="none" >---</option>
+                                {% elseif specialty=='traumatology' %}
+                                    <option value="neurology" >Neurology</option>
+                                    <option value="traumatology" selected>Traumatology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="geriatrics">Geriatrics</option>
+                                    <option value="veterinary">Veterinary</option>
+                                    <option value="none" >---</option>
+                                {% elseif specialty=='dermatology' %}
+                                    <option value="neurology" >Neurology</option>
+                                    <option value="traumatology">Traumatology</option>
+                                    <option value="dermatology" selected>Dermatology</option>
+                                    <option value="geriatrics">Geriatrics</option>
+                                    <option value="veterinary">Veterinary</option>
+                                    <option value="none" >---</option>
+                                {% elseif specialty=='geriatrics' %}
+                                    <option value="neurology" >Neurology</option>
+                                    <option value="traumatology">Traumatology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="geriatrics" selected>Geriatrics</option>
+                                    <option value="veterinary">Veterinary</option>
+                                    <option value="none" >---</option>
+                                {% elseif specialty=='veterinary' %}
+                                    <option value="neurology" >Neurology</option>
+                                    <option value="traumatology">Traumatology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="geriatrics">Geriatrics</option>
+                                    <option value="veterinary" selected>Veterinary</option>
+                                    <option value="none" >---</option>
+                                {% else %}
+                                    <option value="neurology" >Neurology</option>
+                                    <option value="traumatology">Traumatology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="geriatrics">Geriatrics</option>
+                                    <option value="veterinary">Veterinary</option>
+                                    <option value="none" selected>---</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column align-center">
+                        <button class="button"type="submit">Search</button>
+                    </div>
+                </div>
+			</form>
 
 		</div>
 	</div>
+    {% if doctors is not empty %}
 	<div class="block">
-		<div class="block-title"> Search Results</div>
-		<div class="center">
-
-
+		<div class="block-title">Search Results</div>
+		<div class="center test">
+            {% for doctor in doctors %}
+                <a class="row-link" href="#">
+                    <div class=" column-fixed">
+                        <div><b>Name:&nbsp;&nbsp;</b>{{ doctor.getUsername() }}</div>
+                    </div>
+                    <div class=" column-fixed">
+                        <div ><b>Specialty:&nbsp;&nbsp;</b>{{ doctor.getSpecialty() }}</div>
+                    </div>
+                    <div class=" column-fixed">
+                        <div ><b class="no-wrap2">Phone number:&nbsp;&nbsp;</b>{{ doctor.getPhone() }}</div>
+                    </div>
+                </a>
+            {% endfor %}
 		</div>
 	</div>
+        {% endif %}
 
 	
 {% endblock %}

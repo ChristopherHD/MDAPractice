@@ -48,16 +48,46 @@ a:hover .button2, a:hover .button{
 a:focus,.button:focus, .button2:focus{
     outline: 0;
 }
+
+.row-link{
+    width: 100%;
+    justify-content: space-around;
+    margin:auto;
+    display:flex;
+    color: #1d2129;
+    text-decoration: none;
+}
+.row-link:hover{
+    color: white;
+    background-color: #569e26;
+    text-decoration: none;
+}
+.test{
+    display:flex;
+    flex:0 1 auto;
+    align-content: space-around;
+    align-items: flex-start;
+
+
+}
 .column a:hover {
     text-decoration: none;
 }
+.column-fixed{
+    flex:0 1 auto;
 
+    width:200px
+}
 .logo a{
     color:white;
 }
 .logo a:hover{
     color:white;
 }
+.no-wrap{
+    min-width: 73.5px;
+}
+
 
 .menu{
     display:flex;
@@ -68,8 +98,6 @@ a:focus,.button:focus, .button2:focus{
 }
 nav{
     display: flex;
-
-
 }
 
 nav ul{

@@ -19,6 +19,7 @@
                     <li><a href="{{ path("appointments") }}">&nbsp;Appointments&nbsp;</a></li>
                     <li><a href="{{ path("account") }}">&nbsp;Account&nbsp;</a></li>
                 {% elseif is_granted('ROLE_USER') %}
+                    <li><a href="{{ path("searchDoctor") }}">&nbsp;Search Doctor&nbsp;</a></li>
                     <li class="has-children"><a href="#">&nbsp;Appointments&nbsp;</a>
                         <ul>
                             <li class=""><a href="{{ path("appointments") }}">My Appointments</a></li>

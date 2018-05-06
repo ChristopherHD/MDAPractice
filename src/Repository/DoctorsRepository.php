@@ -64,6 +64,16 @@ class DoctorsRepository extends ServiceEntityRepository
         }
         return null;
     }
+
+    public function findByOptions($specialty=null): ?array
+    {
+        if(isset($specialty)){
+            return $this->findBySpecialty($specialty);
+        }
+        else{
+            return $this->findAll();
+        }
+    }
 //    /**
 //     * @return Doctors[] Returns an array of Doctors objects
 //     */
