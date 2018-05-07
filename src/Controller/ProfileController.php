@@ -46,6 +46,7 @@ class ProfileController extends Controller
     public function getDoctor(Request $request, DoctorsRepository $dr, \Swift_Mailer $mailer)
     {
         $error = null;
+        $good= null;
         $doctorID=$request->get('id');
         $userID=$request->get('user');
         if(isset($doctorID)){
@@ -66,10 +67,12 @@ class ProfileController extends Controller
                     $msg
                 );
             $mailer->send($message);
+            $good = 'Email sent!';
         }
         return $this->render('profiles/doctorProfile.html.twig', array(
             'doctor' => $doctor,
             'error'=> $error,
+            'good'=> $good
         ));
     }
 

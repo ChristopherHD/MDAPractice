@@ -22,8 +22,9 @@ class AppointmentController extends Controller
         $this->logger=$logger;
 
     }
-	public function getAppointments(GeneralService $gs)
+	public function getAppointments(Request $request, GeneralService $gs)
 	{
+        $good=$request->get('good');
 		if($this->isGranted('ROLE_USER')){
             $appointments = $this->ar->findByPatientId($this->getUser()->getId());
         }else if ($this->isGranted('ROLE_DOCTOR')){
@@ -38,7 +39,9 @@ class AppointmentController extends Controller
         }
         $future_appointments = $gs->sort($future_appointments);
         return $this->render('appointments/getAppointments.html.twig', array(
-            'appointments' => $future_appointments));
+            'appointments' => $future_appointments,
+            'good' => $good,
+            ));
 	}
 
     public function getOldAppointments(GeneralService $gs)
@@ -120,7 +123,8 @@ class AppointmentController extends Controller
         }
 		$description = $request->get('description');
 		$ag->persist($user,$date,$doctor,$description,$pet);
-		return $this->redirectToRoute('appointments');
+        $good = 'Appointment Saved';
+		return $this->redirectToRoute('appointments',array('good'=>$good));
 	}
 	
 	public function removeAppointment(Request $request)

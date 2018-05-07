@@ -2,7 +2,11 @@
 {% block title %}My Appointments{% endblock %}
 {% block page_title %}Appointments{% endblock %}
 {% block content %}
-
+    {% if good is not null %}
+        <div class="good-block">
+            {{ good }}
+        </div>
+    {% endif %}
 	{% for appoint in appointments %}
 			<div class="block">
                 <div class="block-title">

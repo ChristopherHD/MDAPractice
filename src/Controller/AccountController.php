@@ -46,29 +46,35 @@ class AccountController extends Controller
 
     public function subscribe(Request $request, UsersRepository $ur)
     {
+        $good=null;
+        $error=null;
         $creditCard=$request->get('cc');
         if(isset($creditCard)){
             $user = $this->getUser();
             $user->setCreditCard($creditCard);
             $user->setIsSubscribed(true);
             $ur->update($user);
-            return $this->redirectToRoute('account');
+            $good='Subscribed';
+            return $this->redirectToRoute('account',array('good'=>$good,'error'=>$error));
         }
         return $this->render('accounts/subscribe.html.twig');
     }
 
     public function unsubscribe(UsersRepository $ur)
     {
+        $good=null;
+        $error='Unsubscribed';
         $user = $this->getUser();
         $user->setCreditCard(null);
         $user->setIsSubscribed(false);
         $ur->update($user);
-        return $this->redirectToRoute('account');
+        return $this->redirectToRoute('account',array('good'=>$good,'error'=>$error));
     }
 
     public function getAccount(AnimalsRepository $anr, Request $request){
         $user = $this->getUser();
         $error= $request->get('error');
+        $good= $request->get('good');
         if($this->isGranted('ROLE_DOCTOR')){
             return $this->render('accounts/doctorAccount.html.twig', array(
                 'doctor' => $user,
@@ -80,6 +86,7 @@ class AccountController extends Controller
                 'user' => $user,
                 'pets' => $animals,
                 'error' => $error,
+                'good'=>$good,
             ));
         }
         return $this->redirectToRoute('index');
