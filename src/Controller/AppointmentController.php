@@ -63,6 +63,11 @@ class AppointmentController extends Controller
             'appointments' => $old_appointments));
     }
 
+    public function getRecipe()
+    {
+        return $this->render('recipe.html.twig');
+    }
+
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
     {
 

@@ -67,3 +67,6 @@ removeAppointment:
 selectSpecialty:
     path: /appointments/specialty/select
     controller: App\Controller\AppointmentController::selectSpecialty
+recipes:
+    path: /recipe
+    controller: App\Controller\AppointmentController::getRecipe

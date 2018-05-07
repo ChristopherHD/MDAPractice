@@ -344,6 +344,17 @@ html,body{
     flex-direction: column
 
 }
+.block .center2{
+    padding: 15px 10% 10px 10%;
+    font-size: 80%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 80%;
+    flex-direction: column
+
+}
 .profile-table{
     display:flex;
     flex-direction: row;

@@ -1,6 +1,5 @@
 <?php
 namespace App\Controller;
-
 use App\Repository\AnimalsRepository;
 use App\Repository\DoctorsRepository;
 use App\Repository\UsersRepository;

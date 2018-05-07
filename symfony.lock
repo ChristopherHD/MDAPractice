@@ -1,4 +1,7 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "1.0.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -59,8 +62,23 @@
     "egulias/email-validator": {
         "version": "2.1.4"
     },
+    "endroid/installer": {
+        "version": "1.0.3"
+    },
+    "endroid/qr-code": {
+        "version": "3.2.11"
+    },
+    "endroid/qrcode-bundle": {
+        "version": "3.x-dev"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "khanamiryan/qrcode-detector-decoder": {
+        "version": "1.0.2"
+    },
+    "myclabs/php-enum": {
+        "version": "1.6.0"
     },
     "nikic/php-parser": {
         "version": "v4.0.0"

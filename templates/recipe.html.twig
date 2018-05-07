@@ -1,0 +1,27 @@
+{% extends 'index.html.twig' %}
+{% block title %}Recipes{% endblock %}
+{% block page_title %}Recipe{% endblock %}
+{% block content %}
+    <div class="block">
+        <div class="block-title">Recipe Info</div>
+        <div class="center">
+            <div class="row">
+            <div class="column">
+                <div><b>Medicine:&nbsp;&nbsp;</b> Viagra</div>
+                <div><b>Prescribed by:&nbsp;</b> Pepe</div>
+            </div>
+            <div class="column">
+                <div><b>Recipe ID:&nbsp;&nbsp;</b> 5a654s5f15489sd</div>
+                <div><b>Perceiver NIF:&nbsp;</b> 48698212Q</div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-title">QR </div>
+        <div class="center2">
+            <img src="{{ qr_code_path('pepe') }}" />
+
+        </div>
+    </div>
+{% endblock %}
