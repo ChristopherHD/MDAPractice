@@ -24,6 +24,11 @@ class Doctors implements UserInterface
     private $username;
 
     /**
+     * @ORM\Column(name="email", type="string", length=40)
+     */
+    private $email;
+
+    /**
      * @ORM\Column(type="string", length=20)
      */
     private $phone;
@@ -190,5 +195,21 @@ class Doctors implements UserInterface
     public function setPlainPassword($plainPassword): void
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void
+    {
+        $this->email = $email;
     }
 }

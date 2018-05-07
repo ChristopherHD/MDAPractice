@@ -25,6 +25,7 @@ class DoctorType extends AbstractType
         $builder
             ->add('username',TextType::class)
             ->add('dni', TextType::class)
+            ->add('email', TextType::class)
             ->add('specialty', ChoiceType::class, array(
                 'choices'  => array(
                     'Neurology' => "neurology",

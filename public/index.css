@@ -57,6 +57,8 @@ a:focus,.button:focus, .button2:focus{
     justify-content: space-around;
     padding: 5px 5px;
     height: 30px;
+    min-width: 450px;
+    max-width: 600px;
 
 }
 .row-link:last-child{
@@ -73,9 +75,12 @@ a:focus,.button:focus, .button2:focus{
     -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
-    font-size: 15px;
-    width: 105%;
-    padding: 4px 4px
+    font-size: 14px;
+    height: 30px;
+    width: 120%;
+    padding: 4px 4px;
+    min-width: 540px;
+    max-width: 720px;
 
 
 }
@@ -92,7 +97,13 @@ a:focus,.button:focus, .button2:focus{
 }
 .column-fixed{
     display: flex;
-    width: 12em;
+
+    flex-wrap: nowrap;
+
+}
+.column-fixed-phone{
+    display: flex;
+
 
 }
 .logo a{
