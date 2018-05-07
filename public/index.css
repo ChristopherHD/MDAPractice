@@ -99,6 +99,17 @@ a:focus,.button:focus, .button2:focus{
     color:white;
     white-space:nowrap;
 }
+.block-title img{
+    height: 20px;
+    width: auto;
+    margin-right: 3px;
+    align-self: baseline;
+}
+.block-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .logo a:hover{
     color:white;
 }
