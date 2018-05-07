@@ -22,7 +22,9 @@ class AppointmentsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Appointments::class);
     }
-
+    /**
+     * @return Appointments[]
+     */
 	public function findByPatientId($id): array
     {
 		return $this->createQueryBuilder('a')
@@ -33,7 +35,9 @@ class AppointmentsRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
-		
+    /**
+     * @return Appointments[]
+     */
 	public function findByDoctorId($id): array
     {
 		return $this->createQueryBuilder('a')

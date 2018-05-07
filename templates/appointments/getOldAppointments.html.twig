@@ -1,35 +1,34 @@
 {% extends '/index.html.twig' %}
-{% block title %}Old Appointments{% endblock %}
-{% block page_title %}Old Appointments{% endblock %}
+{% block title %}My Appointments{% endblock %}
+{% block page_title %}Appointments{% endblock %}
 {% block content %}
 
-	{% for appoint in appointments %}
-		{% if date(appoint.date) < date() %}
-			<div class="block">
-				<div class="block-title"> 
-					{{ appoint.date | date('m-d-Y H:i:s') }} </div>
-				<div class="center">
-                    <div class="profile-table">
-                        <div class="column">
-                            {% if is_granted('ROLE_USER') %}
-                                <div><b>Doctor:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.doctor.username }}</a></div>
-                                <div><b>Specialty:&nbsp;&nbsp;</b>{{ appoint.doctor.specialty }} </div>
-                            {% elseif is_granted('ROLE_DOCTOR') %}
-                                <div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.patient.username }}</a></div>
-                            {% endif %}
-                            {% if appoint.getAnimal().name is defined %}
-                                <div><b>Animal:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path("getAnimal",{'id':appoint.getAnimal().getId()}) }}">{{ appoint.getAnimal().name }}</a></div>
-                            {% endif %}
-                        </div>
-                        <div class="column">
+    {% for appoint in appointments %}
+        <div class="block">
+            <div class="block-title"> {{ appoint.date | date('m-d-Y H:i:s') }} (<a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)</div>
+            <div class="center">
+                <div class="profile-table">
+                    <div class="column">
+                        {% if is_granted('ROLE_USER') %}
+                            <div><b>Doctor:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path('doctorProfile',{'id': appoint.doctor.dni}) }}">{{ appoint.doctor.username }}</a></div>
+                            <div><b>Specialty:&nbsp;&nbsp;</b>{{ appoint.doctor.specialty }} </div>
+                        {% elseif is_granted('ROLE_DOCTOR') %}
+                            <div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path('userProfile',{'id': appoint.patient.dni}) }}">{{ appoint.patient.username }}</a></div>
+                        {% endif %}
+                        {% if appoint.getAnimal().name is defined %}
+                            <div><b>Animal:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path("getAnimal",{'id':appoint.getAnimal().getId()}) }}">{{ appoint.getAnimal().name }}</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="column">
                         {% if appoint.description is not empty %}
                             <div><b> Description:&nbsp;&nbsp;</b>{{ appoint.description }} </div>
                         {% endif %}
-                        </div>
                     </div>
-				</div>
-			</div>	
-		{% endif %}	
-	{% endfor %}
-	
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+    <div class="first-option">&nbsp;&nbsp;Next appointments &nbsp;<a href="{{ path('appointments') }}">Here</a></div>
+
 {% endblock %}

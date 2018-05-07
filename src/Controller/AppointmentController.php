@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Repository\AnimalsRepository;
 use App\Repository\AppointmentsRepository;
 use App\Services\AppointmentsGenerator;
+use App\Services\GeneralService;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,28 +22,44 @@ class AppointmentController extends Controller
         $this->logger=$logger;
 
     }
-	public function getAppointments()
+	public function getAppointments(GeneralService $gs)
 	{
 		if($this->isGranted('ROLE_USER')){
             $appointments = $this->ar->findByPatientId($this->getUser()->getId());
         }else if ($this->isGranted('ROLE_DOCTOR')){
 			$appointments = $this->ar->findByDoctorId($this->getUser()->getId());
 		}
+        $current_date = new \DateTime();
+		$future_appointments= array();
+		foreach ($appointments as $appointment){
+		    if($appointment->getDate()>$current_date){
+		        array_push($future_appointments, $appointment);
+            }
+        }
+        $future_appointments = $gs->sort($future_appointments);
         return $this->render('appointments/getAppointments.html.twig', array(
-            'appointments' => $appointments));
+            'appointments' => $future_appointments));
 	}
 
-	public function getOldAppointments()
-	{
-		if($this->isGranted('ROLE_USER')){
+    public function getOldAppointments(GeneralService $gs)
+    {
+        if($this->isGranted('ROLE_USER')){
             $appointments = $this->ar->findByPatientId($this->getUser()->getId());
         }else if ($this->isGranted('ROLE_DOCTOR')){
-			$appointments = $this->ar->findByDoctorId($this->getUser()->getId());
-		}
+            $appointments = $this->ar->findByDoctorId($this->getUser()->getId());
+        }
+        $current_date = new \DateTime();
+        $old_appointments= array();
+        foreach ($appointments as $appointment){
+            if($appointment->getDate()<$current_date){
+                array_push($old_appointments, $appointment);
+            }
+        }
+        $old_appointments = $gs->sort($old_appointments);
         return $this->render('appointments/getOldAppointments.html.twig', array(
-            'appointments' => $appointments));
-	}
-	
+            'appointments' => $old_appointments));
+    }
+
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
     {
 

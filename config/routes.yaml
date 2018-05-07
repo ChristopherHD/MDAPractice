@@ -50,7 +50,7 @@ appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments
 oldAppointments:
-    path: /oldAppointments/get
+    path: /appointments/getOld
     controller: App\Controller\AppointmentController::getOldAppointments
 generateAppointment:
     path: /appointments/generate

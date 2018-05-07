@@ -6,8 +6,10 @@ use App\Entity\Users;
 use App\Form\DoctorType;
 use App\Form\LoginType;
 use App\Form\UserType;
+use App\Repository\AppointmentsRepository;
 use App\Repository\DoctorsRepository;
 use App\Repository\UsersRepository;
+use App\Services\GeneralService;
 use App\Services\IncidentsService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
@@ -17,18 +19,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AppController extends Controller
 {
-    public function index()
+    public function index(AppointmentsRepository $ar, GeneralService $gs)
     {
-		$appointments = null;
-		if($this->isGranted('ROLE_USER')){
-            $appointments = $this->getDoctrine()->getRepository(\App\Entity\Appointments::class)->findByPatientId($this->getUser()->getId());
-        }else if ($this->isGranted('ROLE_DOCTOR')){
-			$appointments = $this->getDoctrine()->getRepository(\App\Entity\Appointments::class)->findByDoctorId($this->getUser()->getId());
-		}
-        if($appointments != null)
-			return $this->render('index.html.twig', array('appointments' => $appointments));
-		else 
-			return $this->render('index.html.twig');
+        $alert_appointments= array();
+        if($this->isGranted('ROLE_USER') ){
+            $appointments = $ar->findByPatientId($this->getUser()->getId());
+            $current_date = new \DateTime();
+            $alert_date_limit = new \DateTime('now +3 day');
+            foreach ($appointments as $appointment){
+                if($appointment->getDate()>$current_date && $appointment->getDate()<$alert_date_limit){
+                    array_push($alert_appointments, $appointment);
+                }
+            }
+        }
+        $alert_appointments = $gs->sort($alert_appointments);
+        return $this->render('index.html.twig',array('appointments'=>$alert_appointments,));
     }
 
     public function login(AuthenticationUtils $authenticationUtils){

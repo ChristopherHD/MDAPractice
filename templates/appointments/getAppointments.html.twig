@@ -4,19 +4,16 @@
 {% block content %}
 
 	{% for appoint in appointments %}
-		{% if date(appoint.date) > date() %}
 			<div class="block">
-			
-				<div class= {% if date(appoint.date) < date('+3days') %} "block-title-alert" {% else %} "block-title" {% endif %}> 
-					{{ appoint.date | date('m-d-Y H:i:s') }} (<a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)</div>
+				<div class="block-title"> {{ appoint.date | date('m-d-Y H:i:s') }} (<a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)</div>
 				<div class="center">
                     <div class="profile-table">
                         <div class="column">
                             {% if is_granted('ROLE_USER') %}
-                                <div><b>Doctor:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.doctor.username }}</a></div>
+                                <div><b>Doctor:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path('doctorProfile',{'id': appoint.doctor.dni}) }}">{{ appoint.doctor.username }}</a></div>
                                 <div><b>Specialty:&nbsp;&nbsp;</b>{{ appoint.doctor.specialty }} </div>
                             {% elseif is_granted('ROLE_DOCTOR') %}
-                                <div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.patient.username }}</a></div>
+                                <div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path('userProfile',{'id': appoint.patient.dni}) }}">{{ appoint.patient.username }}</a></div>
                             {% endif %}
                             {% if appoint.getAnimal().name is defined %}
                                 <div><b>Animal:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path("getAnimal",{'id':appoint.getAnimal().getId()}) }}">{{ appoint.getAnimal().name }}</a></div>
@@ -28,12 +25,10 @@
                         {% endif %}
                         </div>
                     </div>
-					<div class="center">
-						{% if date(appoint.date) < date('+3days') %} <div class="text-red"><b>Appointment in less than 3 days</b></div> {% endif %}
-					</div>
+
 				</div>
 			</div>	
-		{% endif %}
-	{% endfor %}
-	
+		{% endfor %}
+    <div class="first-option">&nbsp;&nbsp;Old appointments &nbsp;<a href="{{ path('oldAppointments') }}">Here</a></div>
+
 {% endblock %}

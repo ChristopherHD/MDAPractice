@@ -16,12 +16,7 @@
             {% block menu_items_start %}{% endblock %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {% if is_granted('ROLE_DOCTOR') %}
-                    <li class="has-children"><a href="#">&nbsp;Appointments&nbsp;</a>
-                        <ul>
-                            <li class=""><a href="{{ path("appointments") }}">My Appointments</a></li>
-                            <li class=""><a href="{{ path("oldAppointments") }}">Old Appointments</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ path("appointments") }}">&nbsp;Appointments&nbsp;</a></li>
                     <li><a href="{{ path("account") }}">&nbsp;Account&nbsp;</a></li>
                 {% elseif is_granted('ROLE_USER') %}
                     <li><a href="{{ path("searchDoctor") }}">&nbsp;Search Doctor&nbsp;</a></li>
@@ -29,7 +24,6 @@
                         <ul>
                             <li class=""><a href="{{ path("appointments") }}">My Appointments</a></li>
                             <li class=""><a href="{{ path("selectSpecialty") }}">New Appointment</a></li>
-                            <li class=""><a href="{{ path("oldAppointments") }}">Old Appointments</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ path("account") }}">&nbsp;Account&nbsp;</a></li>
@@ -46,44 +40,27 @@
     </nav>
         <div class="content">
         {% block content %}
-			{% if appointments is not defined %}
-				<div class="block">
-					<div class="block-title">Welcome!</div>
-					<div class="center">Under Construction</div>
-				</div>
-			{% else %}
-				{% for appoint in appointments %}
-					{% if date(appoint.date) < date("+3days") and date(appoint.date) > date() %}
-						<div class="block">
-							<div class="block-title-alert"> 
-								{{ appoint.date | date('m-d-Y H:i:s') }} (<a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)</div>
-							<div class="center">
-								<div class="profile-table">
-									<div class="column">
-										{% if is_granted('ROLE_USER') %}
-											<div><b>Doctor:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.doctor.username }}</a></div>
-											<div><b>Specialty:&nbsp;&nbsp;</b>{{ appoint.doctor.specialty }} </div>
-										{% elseif is_granted('ROLE_DOCTOR') %}
-											<div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="#">{{ appoint.patient.username }}</a></div>
-										{% endif %}
-										{% if appoint.getAnimal().name is defined %}
-											<div><b>Animal:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path("getAnimal",{'id':appoint.getAnimal().getId()}) }}">{{ appoint.getAnimal().name }}</a></div>
-										{% endif %}
-									</div>
-									<div class="column">
-									{% if appoint.description is not empty %}
-										<div><b> Description:&nbsp;&nbsp;</b>{{ appoint.description }} </div>
-									{% endif %}
-									</div>
-								</div>
-								<div class="center">
-									{% if date(appoint.date) < date('+3days') %} <div class="text-red"><b>Appointment in less than 3 days</b></div> {% endif %}
-								</div>
-							</div>
-						</div>	
-					{% endif %}
-				{% endfor %}
-			{% endif %}
+            {% if appointments is not empty %}
+                <div class="error-block">
+                    Next Appointments:&nbsp;
+                    {% set break = false %}
+                    {% for appointment in appointments if not break %}
+                        {% if loop.index <=2 %}
+                            {{ appointment.date|date('m-d H:i') }}
+
+                            {% if loop.index<appointments|length and loop.index<2 %}
+                                &nbsp;|&nbsp;
+                            {% endif %}
+                        {% else %}
+                            {% set break = true %}
+                        {%  endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="block">
+                <div class="block-title">Welcome!</div>
+                <div class="center">Under Construction</div>
+            </div>
         {% endblock %}
         </div>
     <div class="footer">Symfony&ensp;Web&ensp;created&ensp;by&ensp;Elio García,&ensp;Samuel Falcón&ensp;and&ensp;Christopher&ensp;-&ensp;2018</div>
