@@ -99,11 +99,36 @@ a:focus,.button:focus, .button2:focus{
     color:white;
     white-space:nowrap;
 }
-.block-title img{
+.column img{
+    height: 20px;
+    width: auto;
+    align-self: baseline;
+}
+.center img{
     height: 20px;
     width: auto;
     margin-right: 3px;
     align-self: baseline;
+}
+.row-center{
+    display: flex;
+    justify-content: center;
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+}
+.flex img{
+    height: 15px;
+    width: auto;
+    margin-right: 3px;
+    align-self: baseline;
+}
+.text-red{
+    font-size: 14px;
+    color:red
 }
 .block-title{
     display: flex;
@@ -301,6 +326,21 @@ html,body{
     width: 100%;
     justify-content: center;
 }
+.profile-table2{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-table2 .row2{
+    display: flex;
+    width: 350px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+}
+
 .specialty-table{
     display:flex;
     flex-direction: column;
@@ -319,6 +359,9 @@ html,body{
     border-top: 0;
     padding-top: 0;
     margin-bottom: 3px;
+}
+.lef-pad{
+    padding-left: 5px;
 }
 .pet-table .row{
     border-top: 1px solid rgba(0,0,0,.2);
