@@ -19,7 +19,16 @@ class AppController extends Controller
 {
     public function index()
     {
-        return $this->render('index.html.twig');
+		$appointments = null;
+		if($this->isGranted('ROLE_USER')){
+            $appointments = $this->getDoctrine()->getRepository(\App\Entity\Appointments::class)->findByPatientId($this->getUser()->getId());
+        }else if ($this->isGranted('ROLE_DOCTOR')){
+			$appointments = $this->getDoctrine()->getRepository(\App\Entity\Appointments::class)->findByDoctorId($this->getUser()->getId());
+		}
+        if($appointments != null)
+			return $this->render('index.html.twig', array('appointments' => $appointments));
+		else 
+			return $this->render('index.html.twig');
     }
 
     public function login(AuthenticationUtils $authenticationUtils){

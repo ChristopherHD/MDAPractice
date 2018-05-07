@@ -1,14 +1,13 @@
 {% extends '/index.html.twig' %}
-{% block title %}My Appointments{% endblock %}
-{% block page_title %}Appointments{% endblock %}
+{% block title %}Old Appointments{% endblock %}
+{% block page_title %}Old Appointments{% endblock %}
 {% block content %}
 
 	{% for appoint in appointments %}
-		{% if date(appoint.date) > date() %}
+		{% if date(appoint.date) < date() %}
 			<div class="block">
-			
-				<div class= {% if date(appoint.date) < date('+3days') %} "block-title-alert" {% else %} "block-title" {% endif %}> 
-					{{ appoint.date | date('m-d-Y H:i:s') }} (<a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)</div>
+				<div class="block-title"> 
+					{{ appoint.date | date('m-d-Y H:i:s') }} </div>
 				<div class="center">
                     <div class="profile-table">
                         <div class="column">
@@ -28,12 +27,9 @@
                         {% endif %}
                         </div>
                     </div>
-					<div class="center">
-						{% if date(appoint.date) < date('+3days') %} <div class="text-red"><b>Appointment in less than 3 days</b></div> {% endif %}
-					</div>
 				</div>
 			</div>	
-		{% endif %}
+		{% endif %}	
 	{% endfor %}
 	
 {% endblock %}

@@ -49,6 +49,9 @@ updateUser:
 appointments:
     path: /appointments/get
     controller: App\Controller\AppointmentController::getAppointments
+oldAppointments:
+    path: /oldAppointments/get
+    controller: App\Controller\AppointmentController::getOldAppointments
 generateAppointment:
     path: /appointments/generate
     controller: App\Controller\AppointmentController::generateAppointment

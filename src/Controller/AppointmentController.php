@@ -32,6 +32,17 @@ class AppointmentController extends Controller
             'appointments' => $appointments));
 	}
 
+	public function getOldAppointments()
+	{
+		if($this->isGranted('ROLE_USER')){
+            $appointments = $this->ar->findByPatientId($this->getUser()->getId());
+        }else if ($this->isGranted('ROLE_DOCTOR')){
+			$appointments = $this->ar->findByDoctorId($this->getUser()->getId());
+		}
+        return $this->render('appointments/getOldAppointments.html.twig', array(
+            'appointments' => $appointments));
+	}
+	
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
     {
 
