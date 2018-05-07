@@ -43,17 +43,32 @@ class ProfileController extends Controller
         return $this->render('profiles/searchDoctor.html.twig');
     }
 
-    public function getDoctor(Request $request, DoctorsRepository $dr)
+    public function getDoctor(Request $request, DoctorsRepository $dr, \Swift_Mailer $mailer)
     {
         $error = null;
-        $userID=$request->get('id');
-        if(isset($userID)){
-            $user = $dr->findByDni($userID);
+        $doctorID=$request->get('id');
+        $userID=$request->get('user');
+        if(isset($doctorID)){
+            $doctor = $dr->findByDni($doctorID);
         }else{
             return $this->redirectToRoute('index');
         }
+        if(isset($userID)){
+            $msg=$request->get('msg');
+            $email = $doctor->getEmail();
+            $from = "gmedservice101@gmail.com";
+            $subject='Patient '.$userID;
+
+            $message = (new \Swift_Message($subject))
+                ->setFrom($from)
+                ->setTo('eliolistillo@gmail.com')
+                ->setBody(
+                    $msg
+                );
+            $mailer->send($message);
+        }
         return $this->render('profiles/doctorProfile.html.twig', array(
-            'doctor' => $user,
+            'doctor' => $doctor,
             'error'=> $error,
         ));
     }

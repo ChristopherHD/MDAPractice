@@ -16,6 +16,7 @@
 				<div class="column">
 					<div><b>Name:&nbsp;&nbsp;</b>{{ doctor.getUsername() }}</div>
 					<div><b>DNI/NIF:&nbsp;&nbsp;</b>{{ doctor.getDni() }}</div>
+
 				</div>
 				<div class="column">
 					<div><b>Specialty:&nbsp;&nbsp;</b>{{ doctor.getSpecialty() }}</div>
@@ -26,7 +27,24 @@
 
 		</div>
 	</div>
+	<div class="block">
+		<div class="block-title">Send email</div>
+		<div class="center">
 
+				<div class="column e">
+					<form action="{{ path('doctorProfile') }}">
+					<textarea name="msg" rows="4" cols="60" maxlength="200" style="resize: none" title="email message"></textarea>
+					<input type="hidden" name="id" value="{{ doctor.getDni() }}">
+					<input type="hidden" name="user" value="{{ app.user.username }}">
+				</div>
+			<div class="column align-center">
+					<button class="button">Enviar</button>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
 		<div class="block-option">
 			<div class="row-option">
 				<div class="column">Next Appointments <div class="row"><a href="#">17-23-1992</a> | <a href="#">17-23-1992</a></div>
