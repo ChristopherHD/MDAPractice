@@ -31,6 +31,12 @@ userProfile:
 searchDoctor:
     path: /patients/searchDoctor
     controller: App\Controller\SearchController::searchDoctor
+getRecipes:
+    path: /patients/getRecipes
+    controller: App\Controller\RecipeController::getRecipes
+addRecipe:
+    path: /doctors/addRecipe
+    controller: App\Controller\RecipeController::addRecipe
 doctorProfile:
     path: /doctors/profile/get
     controller: App\Controller\ProfileController::getDoctor
@@ -67,6 +73,4 @@ removeAppointment:
 selectSpecialty:
     path: /appointments/specialty/select
     controller: App\Controller\AppointmentController::selectSpecialty
-recipes:
-    path: /recipe
-    controller: App\Controller\AppointmentController::getRecipe
+

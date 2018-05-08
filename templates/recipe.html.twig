@@ -1,27 +1,29 @@
 {% extends 'index.html.twig' %}
 {% block title %}Recipes{% endblock %}
 {% block page_title %}Recipe{% endblock %}
+
 {% block content %}
+    {% for recipe in recipes %}
     <div class="block">
-        <div class="block-title">Recipe Info</div>
+        <div class="block-title">{{ recipe.getName() }}</div>
         <div class="center">
             <div class="row">
             <div class="column">
-                <div><b>Medicine:&nbsp;&nbsp;</b> Viagra</div>
-                <div><b>Prescribed by:&nbsp;</b> Pepe</div>
+                <div><b>Medicine:&nbsp;&nbsp;</b> {{ recipe.getName() }}</div>
+                <div><b>Prescribed by:&nbsp;</b> {{ recipe.doctor.getUsername() }}</div>
             </div>
             <div class="column">
-                <div><b>Recipe ID:&nbsp;&nbsp;</b> 5a654s5f15489sd</div>
-                <div><b>Perceiver NIF:&nbsp;</b> 48698212Q</div>
+                <div><b>Recipe ID:&nbsp;&nbsp;</b> {{ recipe.getId() }}</div>
+                <div><b>Perceiver NIF:&nbsp;</b> {{ recipe.patient.getUsername() }}</div>
             </div>
+            </div>
+            <div class="row">
+                <img src="{{ qr_code_path(recipe.getName() ~
+                                recipe.doctor.getDni()~
+                                recipe.getId()~
+                                recipe.patient.getDni()) }}" />
             </div>
         </div>
     </div>
-    <div class="block">
-        <div class="block-title">QR </div>
-        <div class="center2">
-            <img src="{{ qr_code_path('pepe') }}" />
-
-        </div>
-    </div>
+    {% endfor %}
 {% endblock %}
