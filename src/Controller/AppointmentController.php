@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Repository\AnimalsRepository;
 use App\Repository\AppointmentsRepository;
+use App\Repository\UsersRepository;
 use App\Services\AppointmentsGenerator;
 use App\Services\GeneralService;
 use Psr\Log\LoggerInterface;
@@ -20,6 +21,14 @@ class AppointmentController extends Controller
     {
         $this->ar= $ar;
         $this->logger=$logger;
+
+    }
+
+    public function closeAppointments(Request $request)
+    {
+        $patientId=$request->get('patient');
+        $appointmentId=$request->get('appointment');
+        return $this->render('closeAppointment.html.twig',array('session'=>$this->get('session'), 'patient'=>$patientId, 'appointment'=> $appointmentId));
 
     }
 	public function getAppointments(Request $request, GeneralService $gs)
@@ -65,7 +74,7 @@ class AppointmentController extends Controller
 
     public function getRecipe()
     {
-        return $this->render('recipe.html.twig');
+        return $this->render('getRecipes.html.twig');
     }
 
 	public function generateAppointment(Request $request,  AppointmentsGenerator $ag)
@@ -131,6 +140,23 @@ class AppointmentController extends Controller
         $good = 'Appointment Saved';
 		return $this->redirectToRoute('appointments',array('good'=>$good));
 	}
+
+    public function persistCloseAppointments(Request $request, UsersRepository $ur)
+    {
+        $appointmentId=$request->get('appointment');
+        $appointment=$this->ar->findById($appointmentId);
+        $patientId=$request->get('patient');
+        $newHistory=$request->get('history');
+        $patient=$ur->findByDni($patientId);
+        $date=new \DateTime('now');
+        $history=$patient->getMedicalHistory();
+        $history=$history."<br><b>Date:&nbsp;&nbsp;</b>".$date->format('Y-m-d h:i')." ".$newHistory;
+        $patient->setMedicalHistory($history);
+        $ur->update($patient);
+        $appointment->setIsClosed(true);
+        $this->ar->update($appointment);
+        return $this->redirectToRoute('appointments');
+    }
 	
 	public function removeAppointment(Request $request)
 	{

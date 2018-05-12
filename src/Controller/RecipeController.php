@@ -27,6 +27,14 @@ class RecipeController extends Controller
         $this->logger=$logger;
 
     }
+
+    public function addRecipe(Request $request)
+    {
+        $patientId = $request->get('patient');
+        $appointment = $request->get('appointment');
+        return $this->render('addRecipes.html.twig',array('patient' => $patientId,'appointment' =>$appointment));
+
+    }
 	public function getRecipes(Request $request, GeneralService $gs)
 	{
         $good=$request->get('good');
@@ -38,16 +46,17 @@ class RecipeController extends Controller
             ));
 	}
 
-    public function persistRecipe(Request $request, RecipesRepository $rr, DoctorsRepository $dr, UsersRepository $ur)
+    public function persistRecipe(Request $request, RecipesRepository $rr, UsersRepository $ur)
     {
         $name=$request->get('name');
         $patientId=$request->get('patient');
         $patient = $ur->findByDni($patientId);
-        $doctorId=$request->get('doctor');
-        $doctor = $dr->findByDni($doctorId);
+        $doctor = $this->getUser();
+        $appointment= $request->get('appointment');
         $date=new \DateTime();
         $recipe= new Recipes($patient,$doctor,$date,$name);
         $rr->addRecipe($recipe);
+        return $this->redirectToRoute('appointments');
     }
 
 

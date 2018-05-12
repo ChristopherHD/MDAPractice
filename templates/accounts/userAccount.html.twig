@@ -46,22 +46,7 @@
 		<div class="center">
 				<div class="history-table">
 					<div class="row">
-						<div class="column">
-							<div><b>Date:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
-
-						</div>
-						<div class="column">
-							<div><b>Description:&nbsp;&nbsp;</b> BLa Bla bla blabala. Porque blababa hizo balabalaba.</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="column">
-							<div><b>Date:&nbsp;&nbsp;</b>{{ user.getBirthdate().format('Y-m-d') }}</div>
-
-						</div>
-						<div class="column">
-							<div><b>Description:&nbsp;&nbsp;</b> BLa Bla bla blabala. Porque blababa hizo balabalaba.</div>
-						</div>
+						<div>{{ user.getMedicalHistory() | raw }}</div>
 					</div>
 			</div>
 

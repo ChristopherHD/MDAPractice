@@ -6,6 +6,7 @@ use App\Entity\Appointments;
 use App\Entity\Doctors;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -99,5 +100,30 @@ class AppointmentsRepository extends ServiceEntityRepository
         }
         return null;
     }
-	
+
+    public function findById($value): ?Appointments
+    {
+        try {
+            return $this->createQueryBuilder('a')
+                ->andWhere('a.id = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
+    }
+
+    public function update(Appointments $appointment)
+    {
+        $em = $this->getEntityManager();
+        try {
+            $em->merge($appointment);
+            $em->flush();
+        } catch (ORMException $e) {
+            return $e;
+        }
+        return null;
+    }
+
 }

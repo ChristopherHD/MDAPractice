@@ -1,0 +1,22 @@
+{% extends '/index.html.twig' %}
+{% block title %}My Appointments{% endblock %}
+{% block page_title %}Appointments{% endblock %}
+{% block content %}
+    <form action="{{ path('persistCloseAppointment') }}">
+    <div class="block">
+        <div class="block-title">Patient: {{ patient }}</div>
+        <div class="center">
+                <div class="row">
+                    Appointment history: <textarea name="history"></textarea>
+                </div>
+        </div>
+    </div>
+    <div class="button_block">
+        <input type="hidden" name="patient" value="{{ patient }}">
+        <input type="hidden" name="appointment" value="{{ appointment }}">
+        <button class="button">Close Appointment</button>
+    </div>
+    </form>
+{% endblock %}
+
+

@@ -48,6 +48,24 @@ a:hover .button2, a:hover .button{
 a:focus,.button:focus, .button2:focus{
     outline: 0;
 }
+.qr-img img{
+    height: 200px;
+    width: auto;
+    margin-right: 3px;
+    align-self: baseline;
+
+}
+.qr-img{
+    padding: 15px 10% 10px 10%;
+    font-size: 80%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 80%;
+    flex-direction: column
+
+}
 
 .row-link{
     display: flex;

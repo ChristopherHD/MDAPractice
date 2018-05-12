@@ -1,12 +1,12 @@
 {% extends 'index.html.twig' %}
 {% block title %}Recipes{% endblock %}
-{% block page_title %}Recipe{% endblock %}
+{% block page_title %}Recipes{% endblock %}
 
 {% block content %}
     {% for recipe in recipes %}
         <div class="block">
             <div class="block-title">{{ recipe.getName() }}</div>
-            <div class="center">
+            <div class="qr-img center3 ">
                 <div class="row">
                     <div class="column">
                         <div><b>Medicine:&nbsp;&nbsp;</b> {{ recipe.getName() }}</div>

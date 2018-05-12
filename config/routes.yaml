@@ -37,9 +37,18 @@ getRecipes:
 addRecipe:
     path: /doctors/addRecipe
     controller: App\Controller\RecipeController::addRecipe
+persistRecipe:
+    path: /doctors/persistRecipe
+    controller: App\Controller\RecipeController::persistRecipe
 doctorProfile:
     path: /doctors/profile/get
     controller: App\Controller\ProfileController::getDoctor
+closeAppointment:
+    path: /doctors/appointments/close
+    controller: App\Controller\AppointmentController::closeAppointments
+persistCloseAppointment:
+    path: /doctors/appoitments/persistClose
+    controller: App\Controller\AppointmentController::persistCloseAppointments
 account:
     path: /account/get
     controller: App\Controller\AccountController::getAccount

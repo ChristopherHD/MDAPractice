@@ -11,15 +11,23 @@
 			<div class="block">
                 <div class="block-title">
                     <div class="column">
-                    {% if date(appoint.date) < date('+3days') %} <div class="text-red flex"><img src="https://image.flaticon.com/icons/svg/564/564619.svg" class="svg-inject" alt="Alert-Logo" /><b>&nbsp;Appointment in less than 3 days&nbsp;</b><img src="https://image.flaticon.com/icons/svg/564/564619.svg" class="svg-inject" alt="Alert-Logo" /></div> {% endif %}
-
-                    <div class="row-center">
-                    {{ appoint.date | date('m/d') }}&nbsp;
-                    (<a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)
-                    </div>
+                        {% if not appoint.isClosed %}
+                            {% if is_granted('ROLE_USER') %}
+                                {% if date(appoint.date) < date('+3days') %} <div class="text-red flex"><img src="https://image.flaticon.com/icons/svg/564/564619.svg" class="svg-inject" alt="Alert-Logo" /><b>&nbsp;Appointment in less than 3 days&nbsp;</b><img src="https://image.flaticon.com/icons/svg/564/564619.svg" class="svg-inject" alt="Alert-Logo" /></div> {% endif %}
+                            {% endif %}
+                            <div class="row-center">
+                                {{ appoint.date | date('m/d') }}&nbsp;
+                                {% if is_granted('ROLE_DOCTOR') %}
+                                    (<a class="redhover" href='{{ path("closeAppointment",{'appointment':appoint.id, 'patient':appoint.patient.dni}) }}'>close</a>)
+                                {% elseif is_granted('ROLE_USER') %}
+                                    <a class="redhover" href='{{ path("removeAppointment") }}?id={{ appoint.id }}'>remove</a>)
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            (closed appointment)
+                        {% endif %}
                     </div>
                 </div>
-
 				<div class="center">
                     <div class="profile-table2">
                         <div class="row2">
@@ -29,6 +37,7 @@
                                 <div><b>Specialty:&nbsp;&nbsp;</b>{{ appoint.doctor.specialty }} </div>
                             {% elseif is_granted('ROLE_DOCTOR') %}
                                 <div><b>Patient:&nbsp;&nbsp;</b><a class="orangehover" href="{{ path('userProfile',{'id': appoint.patient.dni}) }}">{{ appoint.patient.username }}</a></div>
+                                <div><a class="orangehover" href="{{ path('addRecipe',{'patient': appoint.patient.dni}) }}">Prescribe recipe</a></div>
                             {% endif %}
 
                         </div>

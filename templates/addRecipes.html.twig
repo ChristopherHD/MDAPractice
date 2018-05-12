@@ -1,0 +1,17 @@
+{% extends '/index.html.twig' %}
+{% block title %}Recipe{% endblock %}
+{% block page_title %}Add Recipe{% endblock %}
+{% block content %}
+    <div class="block">
+        <div class="block-title">Medicine Name</div>
+        <div class="center">
+            <form action="{{ path('persistRecipe') }}">
+                <input type="hidden" name="patient" value="{{ patient }}">
+                <input type="hidden" name="appointment" value="{{ appointment }}">
+                <input type="text" name="name">
+                <button class="button">Prescribe</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

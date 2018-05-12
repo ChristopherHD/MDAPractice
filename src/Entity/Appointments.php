@@ -59,6 +59,11 @@ class Appointments
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="boolean",options={"default": "0"})
+     */
+    private $isClosed = false;
+
     public function getId()
     {
         return $this->id;
@@ -126,5 +131,21 @@ class Appointments
     public function setAnimal(Animals $animal): void
     {
         $this->animal = $animal;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisClosed()
+    {
+        return $this->isClosed;
+    }
+
+    /**
+     * @param mixed $isClosed
+     */
+    public function setIsClosed($isClosed): void
+    {
+        $this->isClosed = $isClosed;
     }
 }
