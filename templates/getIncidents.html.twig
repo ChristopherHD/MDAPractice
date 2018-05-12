@@ -1,0 +1,54 @@
+{% extends '/index.html.twig' %}
+{% block title %}Incidents{% endblock %}
+{% block page_title %}Incidents{% endblock %}
+{% block content %}
+	<div class="block">
+		<div class="block-title"> Filter Options</div>
+			<div class="center">
+				<form action="{{ path('getIncidents') }}">
+					<div class="genForm">
+						<div class="column e">
+							<div>
+								State:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<select name="state">
+									<option value="ANY" selected>ANY</option>
+									<option value="OPEN">OPEN</option>
+									<option value="CLOSED">CLOSED</option>
+								</select>
+							</div>
+						</div>
+						<div class="column align-center">
+							<button class="button"type="submit">Search</button>
+						</div>
+					</div>
+				</form>
+			</div>
+	</div>
+
+	<div class="block">
+		<div class="block-title">Incidents</div>
+			<div class="center">
+					{% for incident in incidents %}
+						<a class="row-link2 color{{ loop.index % 2 }}" href="{{ path('getIncident',{'id': incident.id}) }}">
+							<div class="column-fixed">
+								<div class="ee"><b>Title:&nbsp;&nbsp;</b>{{ incident.title }}</div>
+							</div>
+							<div class="column-fixed">
+								<div class="ee"><b>Date:&nbsp;&nbsp;</b>{{ incident.date | date('m/d/Y H:i') }}</div>
+							</div>
+							<div class="column-fixed">
+								<div class="ee"><b>User:&nbsp;&nbsp;</b>{% if incident.patient is not null %} Patient: {{ incident.patient.dni }} {% else %} Doctor: {{ incident.doctor.dni }} {% endif %} </div>
+							</div>
+							<div class="column-fixed">
+								<div class="ee"><b>Email:&nbsp;&nbsp;</b>{{ incident.email }}</div>
+							</div>
+							<div class="column-fixed">
+								<div class="ee"><b>State:&nbsp;&nbsp;</b>{% if incident.isClosed() == 0 %} OPEN {% else %} CLOSED {% endif %}</div>
+							</div>
+						</a>
+					{% endfor %}
+					
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends '/index.html.twig' %}
+{% block title %}Incidents{% endblock %}
+{% block page_title %}Incidents{% endblock %}
+{% block content %}
+
+	<div class="block">
+		<div class="block-title">{{ incident.title }}</div>
+			<div class="center">
+				<div class="column-fixed">
+					<div class="ee"><b>Date:&nbsp;&nbsp;</b>{{ incident.date | date('m/d/Y H:i') }}</div>
+				</div>
+				<div class="column-fixed">
+					<div class="ee"><b>User:&nbsp;&nbsp;</b>{% if incident.patient is not null %} Patient: {{ incident.patient.dni }} {% else %} Doctor: {{ incident.doctor.dni }} {% endif %} </div>
+				</div>
+				<div class="column-fixed">
+					<div class="ee"><b>Email:&nbsp;&nbsp;</b>{{ incident.email }}</div>
+				</div>
+				<div class="column-fixed">
+					<div class="ee"><b>State:&nbsp;&nbsp;</b>{% if incident.isClosed() == 0 %} OPEN {% else %} CLOSED {% endif %}</div>
+				</div>
+					<div class="center4"><b>Description:&nbsp;&nbsp;</b>{{ incident.description }} </div>
+			</div>
+		</div>
+		
+		<div class="block">
+			<div class="block-title">Update state</div>
+				<div class="center">
+					<div class="column-fixed">
+						<div class="ee">Confirm change state to:<b>{% if incident.isClosed() == 0 %} CLOSED {% else %} OPEN {% endif %}</b>?&nbsp;&nbsp;</div>
+					</div>
+					<form action="{{ path('getIncidents') }}">
+						<input type="hidden" name="updateState" value="{{ incident.isClosed() }}">
+						<input type="hidden" name="idChange" value="{{ incident.id }}">
+						<div class="center3">
+							<button class="button" type="submit">Confirm</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

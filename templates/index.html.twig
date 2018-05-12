@@ -18,6 +18,7 @@
                 {% if is_granted('ROLE_DOCTOR') %}
                     <li><a href="{{ path("appointments") }}">&nbsp;Appointments&nbsp;</a></li>
                     <li><a href="{{ path("account") }}">&nbsp;Account&nbsp;</a></li>
+                    <li><a href="{{ path("addIncident") }}">&nbsp;Notify Incident&nbsp;</a></li>
                 {% elseif is_granted('ROLE_USER') %}
                     <li><a href="{{ path("searchDoctor") }}">&nbsp;Search Doctor&nbsp;</a></li>
                     <li class="has-children"><a href="#">&nbsp;Appointments&nbsp;</a>
@@ -28,8 +29,10 @@
                         </ul>
                     </li>
                     <li><a href="{{ path("account") }}">&nbsp;Account&nbsp;</a></li>
+                    <li><a href="{{ path("addIncident") }}">&nbsp;Notify Incident&nbsp;</a></li>
                 {% elseif is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path("addDoctor") }}">&nbsp;New Doctor&nbsp;</a></li>
+                    <li><a href="{{ path("getIncidents") }}">&nbsp;Incidents&nbsp;</a></li>
                 {% endif %}
 				<li><a href="{{ path("logout") }}">&nbsp;Log-out&nbsp;</a></li>
             {% else %}

@@ -44,20 +44,39 @@ class IncidentsRepository extends ServiceEntityRepository
 //    /**
 //     * @return Doctors[] Returns an array of Doctors objects
 //     */
-    /*
-    public function findByExampleField($value)
+    
+    public function findAllOrderedByDate(): array
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('i')
+            ->orderBy('i.date', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+	
+    public function findByState(int $state): array
+    {
+        return $this->createQueryBuilder('i')
+			->andWhere('i.isClosed = :val')
+			->setParameter('val', $state)
+            ->orderBy('i.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
+    public function changeState(int $id, int $state): int
+    {
+        return $this->createQueryBuilder('i')
+			->update()
+			->set('i.isClosed',':state')
+			->andWhere('i.id = :val')
+			->setParameter('val', $id)
+			->setParameter('state', $state)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?Doctors
     {

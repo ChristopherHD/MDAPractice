@@ -3,11 +3,14 @@ namespace App\Controller;
 
 use App\Entity\Doctors;
 use App\Entity\Users;
+use App\Entity\Incidents;
 use App\Form\DoctorType;
+use App\Form\IncidentType;
 use App\Form\LoginType;
 use App\Form\UserType;
 use App\Repository\AppointmentsRepository;
 use App\Repository\DoctorsRepository;
+use App\Repository\IncidentsRepository;
 use App\Repository\UsersRepository;
 use App\Services\GeneralService;
 use App\Services\IncidentsService;
@@ -16,6 +19,8 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AppController extends Controller
 {
@@ -105,23 +110,67 @@ class AppController extends Controller
 
     public function addIncident(Request $request, IncidentsService $is){
         $error = null;
-        $email=$request->get('email');
-        $description=$request->get('description');
         $userType=-1;
+		
         if($this->isGranted('ROLE_DOCTOR')){
             $userType=1;
         }elseif($this->isGranted('ROLE_USER')){
             $userType=0;
         }
+		
+        $incident= new Incidents();
+		
+		$form = $this->createForm(IncidentType::class, $incident);
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted() && $form->isValid()) {
+			$email= $userType == 0 ? $form->get('email')->getData() : $this->getUser()->getEmail();
+			$title=$form->get('title')->getData();
+			$description=$form->get('description')->getData();
+            $error = $is->newIncident($email,$userType,$this->getUser(),$description, $title);
 
-        if(isset($email,$description)){
-            $error = $is->newIncident($email,$userType,$this->getUser(),$description);
             if($error==null){
                 return $this->redirectToRoute('index');
+            }else{
+                $form->addError(new FormError('Exception: '.$error));
             }
         }
 
-        return $this->render('addIncident.html.twig');
-
+        return $this->render('addIncident.html.twig', array(
+            'form' => $form->createView(),
+		));
     }
+	
+	public function getIncidents(Request $request, IncidentsRepository $ir)
+	{
+        $incidents = null;
+		$state = $request->get('state');
+		$idChange = $request->get('idChange');
+		$changeState = $request->get('updateState');
+		if(isset($state) && $state=="OPEN"){
+			$incidents = $this->getDoctrine()->getEntityManager()->getRepository('App:Incidents')->findByState(0);
+		} elseif(isset($state) && $state=="CLOSED"){
+			$incidents = $this->getDoctrine()->getEntityManager()->getRepository('App:Incidents')->findByState(1);
+		} else {
+			if(isset($changeState)){
+				$this->getDoctrine()->getEntityManager()->getRepository('App:Incidents')->changeState($idChange, $changeState == 0 ? 1 : 0);
+			}
+			$incidents = $this->getDoctrine()->getEntityManager()->getRepository('App:Incidents')->findAllOrderedByDate();
+		}
+		return $this->render('getIncidents.html.twig', array(
+			'incidents' => $incidents,
+			));
+	}
+	
+	public function getIncident(Request $request, IncidentsRepository $ir, GeneralService $gs)
+	{
+        $incident = null;
+		$state = $request->get('id');
+		if(isset($state)){
+			$incident = $this->getDoctrine()->getEntityManager()->getRepository('App:Incidents')->findOneById($state);
+		}
+        return $this->render('selectIncident.html.twig', array(
+            'incident' => $incident,
+            ));
+	}
 }

@@ -1,16 +1,42 @@
 {% extends 'index.html.twig' %}
-{% block title %}Select specialty{% endblock %}
-{% block page_title %}Specialties{% endblock %}
+{% block title %}New incident{% endblock %}
+{% block page_title %}Incident{% endblock %}
 {% block content %}
 {# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
     <div class="block">
-        <div class="block-title">Select medical specialty for the appointment</div>
-        <div class="center">
+        <div class="block-title">Set description of the incident</div>
+        <div class="form2">
 
-			<a href={{ path('generateAppointment',{'specialty': 'neurology'}) }}><div class='specialty-link' >Neurology </div></a>
-            <a href={{ path('generateAppointment',{'specialty': 'traumatology'}) }}><div class='specialty-link' >Traumatology </div></a>
-            <a href={{ path('generateAppointment',{'specialty': 'dermatology'}) }}><div class='specialty-link' >Dermatology </div></a>
-            <a href={{ path('generateAppointment',{'specialty': 'geriatrics'}) }}><div class='specialty-link' >Geriatrics </div></a>
+            {{ form_start(form) }}
+			
+			<div>
+				{{ form_label(form.email) }}
+				{{ form_errors(form.email) }}
+				{% if not is_granted('ROLE_USER') %}
+					{{ form_widget(form.email, {value: app.user.email }) }}
+				{% else %}
+					{{ form_widget(form.email) }}
+				{% endif %}
+			</div>
+			
+			<div>
+				{{ form_label(form.title) }}
+				{{ form_errors(form.title) }}
+				{{ form_widget(form.title) }}
+			</div>
+			
+			<div>
+				{{ form_label(form.description) }}
+				{{ form_errors(form.description) }}
+				{{ form_widget(form.description) }}
+			</div>
+			
+			<div class = center3>
+				{{ form_widget(form.create) }}
+			</div>
+			
+            {{ form_end(form) }}
+			
         </div>
     </div>
 {% endblock %}

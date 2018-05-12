@@ -12,11 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Incidents
 {
 
-    public function __construct($date=null, $description=null, $isClosed=false,$email=null,$patient=null, $doctor=null)
+    public function __construct($date=null, $description=null, $isClosed=false,$email=null, $title=null ,$patient=null, $doctor=null)
     {
         $this->patient = $patient;
         $this->doctor = $doctor;
         $this->date = $date;
+		$this->title = $title;
 		$this->description = $description;
 		$this->isClosed = $isClosed;
 		$this->email=$email;
@@ -30,14 +31,14 @@ class Incidents
     private $id;
 
     /**
-     * @var integer $patient
+     * @var Users $patient
 	 * @ORM\ManyToOne(targetEntity="Users")
 	 * @ORM\JoinColumn(name="patient", referencedColumnName="dni")
      */
     private $patient;
 
     /**
-     * @var integer $doctor
+     * @var Doctors $doctor
 	 * @ORM\ManyToOne(targetEntity="Doctors")
 	 * @ORM\JoinColumn(name="doctor", referencedColumnName="dni")
      */
@@ -49,10 +50,15 @@ class Incidents
     private $date;
 	
     /**
+     * @ORM\Column(type="string", length=40 )
+     */
+    private $title;
+
+    /**
      * @ORM\Column(type="string", length=200 )
      */
     private $description;
-
+	
     /**
      * @ORM\Column(type="string", length=200 )
      */
@@ -68,24 +74,24 @@ class Incidents
         return $this->id;
     }
 
-    public function getPatient(): ?int
+    public function getPatient(): ?Users
     {
         return $this->patient;
     }
 
-    public function setPatient(int $patient): self
+    public function setPatient(Users $patient): self
     {
         $this->patient = $patient;
 
         return $this;
     }
 
-    public function getDoctor(): ?int
+    public function getDoctor(): ?Doctors
     {
         return $this->doctor;
     }
 
-    public function setDoctor(int $doctor): self
+    public function setDoctor(Doctors $doctor): self
     {
         $this->doctor = $doctor;
 
@@ -104,14 +110,50 @@ class Incidents
         return $this;
     }
 	
+	public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+	
+	public function getIsClosed(): ?bool
+    {
+        return $this->isClosed;
+    }
+
+    public function setIsClosed(string $isClosed): self
+    {
+        $this->isClosed = $isClosed;
+
+        return $this;
+    }
+	
 	public function getDescription(): ?string
     {
-        return $this->doctor;
+        return $this->description;
     }
 
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+	
+	public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

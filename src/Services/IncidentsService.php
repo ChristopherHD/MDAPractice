@@ -31,9 +31,9 @@ class IncidentsService
         $this->dr = $dr;
         $this->ir = $ir;
     }
-    public function newIncident($email,$userType,$user,$description){
+    public function newIncident($email,$userType,$user,$description,$title){
         $date = new \DateTime();
-        $incident = new Incidents($date, $description, false, $email);
+        $incident = new Incidents($date, $description, false, $email, $title);
         if($userType==0){
             $incident->setPatient($user);
         }elseif ($userType==1){

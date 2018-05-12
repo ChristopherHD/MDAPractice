@@ -16,6 +16,12 @@ addIncident:
 addDoctor:
     path: /admins/addDoctor
     controller: App\Controller\AppController::addDoctor
+getIncident:
+    path: /admins/incidents/get
+    controller: App\Controller\AppController::getIncident
+getIncidents:
+    path: /admins/incidents
+    controller: App\Controller\AppController::getIncidents
 addAnimal:
     path: /patients/addAnimal
     controller: App\Controller\AccountController::addAnimal
